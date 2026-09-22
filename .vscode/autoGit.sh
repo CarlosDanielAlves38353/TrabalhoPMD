@@ -12,7 +12,7 @@ git add .
 # Faz o commit com a mensagem digitada
 git commit -m "$mensagem"
 
-# Configura a URL temporariamente com as credenciais para fazer o push
+# Configura a URL com as credenciais para fazer o push
 repo_url="//github.com/CarlosDanielAlves38353/TrabalhoPMD.git"
 
 # Executa o push utilizando o usuário e senha fornecidos

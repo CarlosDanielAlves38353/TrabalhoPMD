@@ -1,0 +1,518 @@
+# SKINS PARA O PROJETO TRABALHO PMD
+# Formato: ID;NOME;JOGO;RARIDADE
+
+
+# ==================== VALORANT ====================
+
+1;Vandal Prime;Valorant;Premium
+2;Phantom Oni;Valorant;Premium
+3;Vandal Reaver;Valorant;Premium
+4;Operator Elderflame;Valorant;Ultra
+5;Judge Elderflame;Valorant;Ultra
+6;Sheriff Ion;Valorant;Premium
+7;Operator Ion;Valorant;Premium
+8;Vandal RGX 11Z Pro;Valorant;Premium
+9;Phantom RGX 11Z Pro;Valorant;Premium
+10;Vandal Gaia's Vengeance;Valorant;Premium
+11;Ghost Gaia's Vengeance;Valorant;Premium
+12;Phantom Protocol 781-A;Valorant;Premium
+13;Odin Reaver;Valorant;Premium
+14;Ghost Sovereign;Valorant;Premium
+15;Vandal Sentinels of Light;Valorant;Premium
+16;Phantom Singularity;Valorant;Premium
+17;Sheriff Singularity;Valorant;Premium
+18;Vandal Prelude to Chaos;Valorant;Exclusive
+19;Operator Prelude to Chaos;Valorant;Exclusive
+20;Classic Spectrum;Valorant;Exclusive
+21;Phantom Spectrum;Valorant;Exclusive
+22;Vandal Neptune;Valorant;Premium
+23;Guardian Neptune;Valorant;Premium
+24;Vandal Champions 2021;Valorant;Exclusive
+25;Phantom Champions 2022;Valorant;Exclusive
+26;Vandal Champions 2023;Valorant;Exclusive
+27;Vandal Araxys;Valorant;Exclusive
+28;Phantom Araxys;Valorant;Exclusive
+29;Operator Forsaken;Valorant;Premium
+30;Vandal Forsaken;Valorant;Premium
+31;Sheriff Magepunk;Valorant;Premium
+32;Operator Magepunk;Valorant;Premium
+33;Phantom Oni 2.0;Valorant;Premium
+34;Vandal Black.Market;Valorant;Premium
+35;Phantom Black.Market;Valorant;Premium
+36;Vandal Kuronami;Valorant;Exclusive
+37;Sheriff Kuronami;Valorant;Exclusive
+38;Operator Kuronami;Valorant;Exclusive
+39;Vandal Imperium;Valorant;Exclusive
+40;Judge Imperium;Valorant;Exclusive
+41;Phantom Champions 2024;Valorant;Exclusive
+42;Vandal Xerofang;Valorant;Premium
+43;Phantom Xerofang;Valorant;Premium
+44;Vandal Gaia's Vengeance 2.0;Valorant;Premium
+45;Ghost Reaver;Valorant;Premium
+46;Sheriff Reaver;Valorant;Premium
+47;Spectre Reaver;Valorant;Premium
+48;Vandal Ion;Valorant;Premium
+49;Phantom Reaver;Valorant;Premium
+50;Vandal Sovereign;Valorant;Premium
+51;Guardian Sovereign;Valorant;Premium
+52;Vandal Origin;Valorant;Premium
+53;Operator Origin;Valorant;Premium
+54;Bucky Origin;Valorant;Premium
+55;Vandal Glitchpop;Valorant;Exclusive
+56;Classic Glitchpop;Valorant;Exclusive
+57;Operator Glitchpop;Valorant;Exclusive
+58;Phantom Glitchpop;Valorant;Exclusive
+59;Vandal BlastX;Valorant;Premium
+60;Phantom BlastX;Valorant;Premium
+61;Spectre BlastX;Valorant;Premium
+62;Vandal Elderflame;Valorant;Ultra
+63;Operator Reaver;Valorant;Premium
+64;Vandal Magepunk;Valorant;Premium
+65;Phantom Magepunk;Valorant;Premium
+66;Sheriff Spectrum;Valorant;Exclusive
+67;Bulldog Spectrum;Valorant;Exclusive
+68;Vandal RGX 11Z Pro 2.0;Valorant;Premium
+69;Phantom RGX 11Z Pro 2.0;Valorant;Premium
+70;Operator RGX 11Z Pro;Valorant;Premium
+71;Vandal Origin;Valorant;Premium
+72;Phantom Ion;Valorant;Premium
+73;Vandal Forsaken;Valorant;Premium
+74;Spectre Prime;Valorant;Premium
+75;Classic Prime;Valorant;Premium
+76;Vandal Prime 2.0;Valorant;Premium
+77;Operator Sentinels of Light;Valorant;Premium
+78;Phantom Oni;Valorant;Premium
+79;Vandal Neptune 2.0;Valorant;Premium
+80;Phantom Spectrum 2.0;Valorant;Exclusive
+81;Sheriff Ion 2.0;Valorant;Premium
+82;Vandal Tethered Realms;Valorant;Premium
+83;Phantom Tethered Realms;Valorant;Premium
+84;Vandal Magepunk 3.0;Valorant;Premium
+85;Operator Magepunk 2.0;Valorant;Premium
+86;Phantom Radiant Crisis 001;Valorant;Premium
+87;Bucky Radiant Crisis 001;Valorant;Premium
+88;Vandal Prelude;Valorant;Exclusive
+89;Phantom Ruination;Valorant;Exclusive
+90;Guardian Ruination;Valorant;Exclusive
+91;Vandal Ruination;Valorant;Exclusive
+92;Spectre Ruination;Valorant;Exclusive
+93;Phantom Recon;Valorant;Premium
+94;Spectre Recon;Valorant;Premium
+95;Ghost Recon;Valorant;Premium
+96;Vandal Origin 2.0;Valorant;Premium
+97;Operator Origin 2.0;Valorant;Premium
+98;Vandal Sentinels;Valorant;Premium
+99;Phantom ChronoVoid;Valorant;Exclusive
+100;Vandal ChronoVoid;Valorant;Exclusive
+
+# ==================== CS2 ====================
+
+101;AK-47 | Redline;CS2;Classified
+102;AWP | Asiimov;CS2;Covert
+103;AK-47 | Vulcan;CS2;Covert
+104;M4A4 | Asiimov;CS2;Covert
+105;M4A1-S | Hyper Beast;CS2;Covert
+106;AWP | Hyper Beast;CS2;Covert
+107;AK-47 | Neon Rider;CS2;Covert
+108;M4A4 | Desolate Space;CS2;Covert
+109;AWP | Wildfire;CS2;Covert
+110;USP-S | Kill Confirmed;CS2;Covert
+111;Desert Eagle | Printstream;CS2;Covert
+112;M4A1-S | Printstream;CS2;Covert
+113;AK-47 | Bloodsport;CS2;Covert
+114;Glock-18 | Water Elemental;CS2;Classified
+115;USP-S | Cortex;CS2;Classified
+116;M4A1-S | Golden Coil;CS2;Covert
+117;AK-47 | Frontside Misty;CS2;Classified
+118;AWP | Neo-Noir;CS2;Covert
+119;USP-S | Neo-Noir;CS2;Classified
+120;Desert Eagle | Mecha Industries;CS2;Classified
+121;AK-47 | The Empress;CS2;Covert
+122;M4A4 | The Emperor;CS2;Covert
+123;AWP | Containment Breach;CS2;Covert
+124;AK-47 | Ice Coaled;CS2;Classified
+125;M4A1-S | Player Two;CS2;Covert
+126;AK-47 | Nightwish;CS2;Covert
+127;M4A1-S | Chantico's Fire;CS2;Covert
+128;AWP | Lightning Strike;CS2;Covert
+129;AK-47 | Jaguar;CS2;Covert
+130;M4A4 | Hellfire;CS2;Covert
+131;Glock-18 | Vogue;CS2;Classified
+132;USP-S | Monster Mashup;CS2;Classified
+133;Desert Eagle | Code Red;CS2;Covert
+134;Desert Eagle | Kumicho Dragon;CS2;Classified
+135;Five-SeveN | Hyper Beast;CS2;Covert
+136;SSG 08 | Dragonfire;CS2;Covert
+137;MAC-10 | Disco Tech;CS2;Classified
+138;MP7 | Bloodsport;CS2;Classified
+139;P250 | See Ya Later;CS2;Covert
+140;CZ75-Auto | Xiangliu;CS2;Classified
+141;AK-47 | Head Shot;CS2;Classified
+142;AK-47 | Leet Museo;CS2;Covert
+143;M4A4 | Temukau;CS2;Covert
+144;M4A1-S | Black Lotus;CS2;Classified
+145;AWP | Duality;CS2;Classified
+146;AWP | Mortis;CS2;Classified
+147;AWP | Fever Dream;CS2;Classified
+148;AK-47 | Phantom Disruptor;CS2;Covert
+149;M4A4 | In Living Color;CS2;Covert
+150;M4A1-S | Emphorosaur-S;CS2;Classified
+151;M4A1-S | Night Terror;CS2;Classified
+152;M4A1-S | Imminent Danger;CS2;Covert
+153;M4A1-S | Fizzy POP;CS2;Classified
+154;M4A1-S | Blue Phosphor;CS2;Restricted
+155;M4A1-S | Welcome to the Jungle;CS2;Covert
+156;M4A1-S | Moss Quartz;CS2;Restricted
+157;M4A1-S | Control Panel;CS2;Classified
+158;M4A1-S | Nightmare;CS2;Classified
+159;M4A1-S | Leaded Glass;CS2;Classified
+160;M4A1-S | Briefing;CS2;Restricted
+161;M4A1-S | Decimator;CS2;Classified
+162;M4A1-S | Flashback;CS2;Restricted
+163;M4A1-S | Mecha Industries;CS2;Covert
+164;M4A1-S | Hot Rod;CS2;Covert
+165;M4A1-S | Icarus Fell;CS2;Restricted
+166;M4A1-S | Basilisk;CS2;Restricted
+167;M4A1-S | Cyrex;CS2;Covert
+168;M4A1-S | Master Piece;CS2;Covert
+169;M4A1-S | Knight;CS2;Covert
+170;M4A1-S | Atomic Alloy;CS2;Classified
+171;M4A1-S | Guardian;CS2;Restricted
+172;M4A1-S | Nitro;CS2;Restricted
+173;M4A1-S | Boreal Forest;CS2;Mil-Spec
+174;M4A1-S | VariCamo;CS2;Mil-Spec
+175;M4A1-S | Blood Tiger;CS2;Mil-Spec
+176;M4A1-S | Bright Water;CS2;Restricted
+177;M4A1-S | Dark Water;CS2;Restricted
+178;M4A1-S | Rose Hex;CS2;Restricted
+179;M4A1-S | Vaporwave;CS2;Covert
+180;M4A1-S | Fade;CS2;Covert
+181;AK-47 | Slate;CS2;Restricted
+182;AK-47 | Elite Build;CS2;Mil-Spec
+183;AK-47 | Asiimov;CS2;Covert
+184;AK-47 | Fire Serpent;CS2;Covert
+185;AK-47 | Case Hardened;CS2;Covert
+186;AK-47 | Fuel Injector;CS2;Covert
+187;AK-47 | Wasteland Rebel;CS2;Covert
+188;AK-47 | Orbit Mk01;CS2;Classified
+189;AK-47 | Point Disarray;CS2;Classified
+190;AK-47 | The Outsiders;CS2;Covert
+191;AWP | Dragon Lore;CS2;Covert
+192;AWP | Atheris;CS2;Restricted
+193;AWP | Capillary;CS2;Mil-Spec
+194;AWP | Graphite;CS2;Classified
+195;AWP | Redline;CS2;Classified
+196;AWP | Corticera;CS2;Classified
+197;AWP | Lightning Strike;CS2;Covert
+198;AWP | Oni Taiji;CS2;Covert
+199;AWP | Medusa;CS2;Covert
+200;AWP | PAW;CS2;Restricted
+
+# ==================== FORTNITE ====================
+
+201;Renegade Raider;Fortnite;Legendary
+202;Black Knight;Fortnite;Legendary
+203;Skull Trooper;Fortnite;Epic
+204;Ghoul Trooper;Fortnite;Epic
+205;Raven;Fortnite;Epic
+206;Raptor;Fortnite;Legendary
+207;Omega;Fortnite;Legendary
+208;John Wick;Fortnite;Legendary
+209;Drift;Fortnite;Legendary
+210;Galaxy;Fortnite;Legendary
+211;Peely;Fortnite;Epic
+212;Midas;Fortnite;Legendary
+213;Midas Rex;Fortnite;Legendary
+214;The Reaper;Fortnite;Legendary
+215;Travis Scott;Fortnite;Icon Series
+216;Marshmello;Fortnite;Icon Series
+217;Ninja;Fortnite;Icon Series
+218;Lachlan;Fortnite;Icon Series
+219;Major Mancake;Fortnite;Epic
+220;Fishstick;Fortnite;Rare
+221;Aura;Fortnite;Rare
+222;Crystal;Fortnite;Rare
+223;Focus;Fortnite;Rare
+224;Hush;Fortnite;Rare
+225;Brite Bomber;Fortnite;Rare
+226;Dark Bomber;Fortnite;Epic
+227;Lynx;Fortnite;Legendary
+228;Kit;Fortnite;Legendary
+229;Meowscles;Fortnite;Epic
+230;Midas Summer;Fortnite;Legendary
+231;Shadow Midas;Fortnite;Epic
+232;Chaos Agent;Fortnite;Epic
+233;Guff;Fortnite;Epic
+234;Jules;Fortnite;Epic
+235;Skye;Fortnite;Legendary
+236;Eternal Knight;Fortnite;Legendary
+237;Ultima Knight;Fortnite;Legendary
+238;Dire;Fortnite;Legendary
+239;Calamity;Fortnite;Legendary
+240;Sentinel;Fortnite;Legendary
+241;Ice King;Fortnite;Legendary
+242;The Ice Queen;Fortnite;Legendary
+243;Hybrid;Fortnite;Legendary
+244;Ragnarok;Fortnite;Legendary
+245;Driftwalker;Fortnite;Epic
+246;Doom Slayer;Fortnite;Gaming Legends
+247;Kratos;Fortnite;Gaming Legends
+248;Master Chief;Fortnite;Gaming Legends
+249;Aloy;Fortnite;Gaming Legends
+250;Ezio Auditore;Fortnite;Gaming Legends
+251;Leon Kennedy;Fortnite;Gaming Legends
+252;Claire Redfield;Fortnite;Gaming Legends
+253;Geralt of Rivia;Fortnite;Gaming Legends
+254;Jill Valentine;Fortnite;Gaming Legends
+255;Chris Redfield;Fortnite;Gaming Legends
+256;Snake Eyes;Fortnite;Epic
+257;Black Widow;Fortnite;Marvel
+258;Iron Man;Fortnite;Marvel
+259;Captain America;Fortnite;Marvel
+260;Thor;Fortnite;Marvel
+261;Loki Laufeyson;Fortnite;Marvel
+262;Doctor Strange;Fortnite;Marvel
+263;Scarlet Witch;Fortnite;Marvel
+264;Moon Knight;Fortnite;Marvel
+265;Spider-Man;Fortnite;Marvel
+266;Spider-Gwen;Fortnite;Marvel
+267;Venom;Fortnite;Marvel
+268;Deadpool;Fortnite;Marvel
+269;Wolverine;Fortnite;Marvel
+270;Storm;Fortnite;Marvel
+271;Gambit;Fortnite;Marvel
+272;Rogue;Fortnite;Marvel
+273;Psylocke;Fortnite;Marvel
+274;Thanos;Fortnite;Marvel
+275;Star-Lord;Fortnite;Marvel
+276;Batman Zero;Fortnite;DC
+277;Harley Quinn;Fortnite;DC
+278;Catwoman Comic;Fortnite;DC
+279;Poison Ivy;Fortnite;DC
+280;The Flash;Fortnite;DC
+281;Green Arrow;Fortnite;DC
+282;Black Adam;Fortnite;DC
+283;Aquaman;Fortnite;DC
+284;Superman;Fortnite;DC
+285;Wonder Woman;Fortnite;DC
+286;Deathstroke;Fortnite;DC
+287;Raven DC;Fortnite;DC
+288;Beast Boy;Fortnite;DC
+289;Dreamer;Fortnite;DC
+290;Starfire;Fortnite;DC
+291;Rebirth Harley Quinn;Fortnite;DC
+292;Batman Who Laughs;Fortnite;DC
+293;Armored Batman Zero;Fortnite;DC
+294;Clark Kent;Fortnite;DC
+295;Selene;Fortnite;Epic
+296;Dahlia;Fortnite;Rare
+297;Kuno;Fortnite;Rare
+298;Kenji;Fortnite;Rare
+299;Taro;Fortnite;Epic
+300;Suzuki;Fortnite;Epic
+
+# ==================== LEAGUE OF LEGENDS ====================
+
+301;Elementalista Lux;League of Legends;Ultimate
+302;Pulsefire Ezreal;League of Legends;Ultimate
+303;DJ Sona;League of Legends;Ultimate
+304;Spirit Guard Udyr;League of Legends;Ultimate
+305;Gun Goddess Miss Fortune;League of Legends;Ultimate
+306;K/DA Ahri;League of Legends;Epic
+307;K/DA Akali;League of Legends;Epic
+308;K/DA Evelynn;League of Legends;Epic
+309;K/DA Kai'Sa;League of Legends;Epic
+310;K/DA ALL OUT Seraphine;League of Legends;Ultimate
+311;Spirit Blossom Ahri;League of Legends;Legendary
+312;PROJECT Pyke;League of Legends;Legendary
+313;PROJECT Zed;League of Legends;Legendary
+314;PROJECT Ashe;League of Legends;Legendary
+315;PROJECT Irelia;League of Legends;Legendary
+316;PROJECT Katarina;League of Legends;Legendary
+317;PROJECT Fiora;League of Legends;Legendary
+318;PROJECT Leona;League of Legends;Legendary
+319;PROJECT Warwick;League of Legends;Legendary
+320;PROJECT Jhin;League of Legends;Legendary
+321;PROJECT Lucian;League of Legends;Legendary
+322;PROJECT Vayne;League of Legends;Legendary
+323;PROJECT Senna;League of Legends;Legendary
+324;PROJECT Mordekaiser;League of Legends;Legendary
+325;True Damage Ekko;League of Legends;Legendary
+326;True Damage Qiyana;League of Legends;Legendary
+327;True Damage Senna;League of Legends;Legendary
+328;True Damage Yasuo;League of Legends;Epic
+329;True Damage Akali;League of Legends;Epic
+330;Star Guardian Jinx;League of Legends;Legendary
+331;Star Guardian Ahri;League of Legends;Legendary
+332;Star Guardian Xayah;League of Legends;Legendary
+333;Star Guardian Rakan;League of Legends;Legendary
+334;Star Guardian Kai'Sa;League of Legends;Legendary
+335;Star Guardian Neeko;League of Legends;Legendary
+336;Star Guardian Syndra;League of Legends;Epic
+337;Dark Star Thresh;League of Legends;Legendary
+338;Dark Star Jhin;League of Legends;Legendary
+339;Dark Cosmic Jhin;League of Legends;Legendary
+340;Dark Star Orianna;League of Legends;Epic
+341;High Noon Ashe;League of Legends;Legendary
+342;High Noon Lucian;League of Legends;Legendary
+343;High Noon Thresh;League of Legends;Legendary
+344;High Noon Yone;League of Legends;Legendary
+345;High Noon Senna;League of Legends;Legendary
+346;Coven Evelynn;League of Legends;Legendary
+347;Coven Morgana;League of Legends;Legendary
+348;Coven LeBlanc;League of Legends;Legendary
+349;Coven Zyra;League of Legends;Epic
+350;Coven Camille;League of Legends;Epic
+351;Nightbringer Yasuo;League of Legends;Legendary
+352;Nightbringer Kayn;League of Legends;Legendary
+353;Dawnbringer Riven;League of Legends;Legendary
+354;Dawnbringer Soraka;League of Legends;Epic
+355;Battle Queen Katarina;League of Legends;Legendary
+356;Battle Academia Ezreal;League of Legends;Epic
+357;Battle Academia Yone;League of Legends;Epic
+358;Arcana Tahm Kench;League of Legends;Legendary
+359;Arcana Xayah;League of Legends;Epic
+360;Arcana Rakan;League of Legends;Epic
+361;Spirit Blossom Thresh;League of Legends;Legendary
+362;Spirit Blossom Kindred;League of Legends;Legendary
+363;Spirit Blossom Sett;League of Legends;Legendary
+364;Spirit Blossom Yasuo;League of Legends;Epic
+365;Spirit Blossom Yone;League of Legends;Epic
+366;Empyrean Pyke;League of Legends;Legendary
+367;Empyrean Jax;League of Legends;Epic
+368;Empyrean Vex;League of Legends;Epic
+369;Soul Fighter Samira;League of Legends;Ultimate
+370;Soul Fighter Viego;League of Legends;Legendary
+371;Soul Fighter Sett;League of Legends;Legendary
+372;Soul Fighter Gwen;League of Legends;Epic
+373;Soul Fighter Naafiri;League of Legends;Epic
+374;Battle Bunny Miss Fortune;League of Legends;Legendary
+375;Battle Bunny Prime Riven;League of Legends;Legendary
+376;Arcade Ahri;League of Legends;Epic
+377;Arcade Ezreal;League of Legends;Epic
+378;Arcade Sona;League of Legends;Epic
+379;Arcade Miss Fortune;League of Legends;Epic
+380;Arcade Riven;League of Legends;Epic
+381;PROJECT Akali;League of Legends;Epic
+382;PROJECT LeBlanc;League of Legends;Epic
+383;PROJECT Sejuani;League of Legends;Epic
+384;PROJECT Sylas;League of Legends;Epic
+385;PROJECT Varus;League of Legends;Epic
+386;Mecha Kingdoms Jax;League of Legends;Legendary
+387;Mecha Kingdoms Sett;League of Legends;Legendary
+388;Mecha Kingdoms Garen;League of Legends;Epic
+389;Mecha Kingdoms Draven;League of Legends;Epic
+390;Mecha Kingdoms Leona;League of Legends;Epic
+391;Odyssey Kayn;League of Legends;Legendary
+392;Odyssey Jinx;League of Legends;Epic
+393;Odyssey Yasuo;League of Legends;Epic
+394;Odyssey Karma;League of Legends;Epic
+395;Odyssey Sivir;League of Legends;Epic
+396;Battlecast Alpha Skarner;League of Legends;Legendary
+397;Resistance Jayce;League of Legends;Epic
+398;Battlecast Kog'Maw;League of Legends;Epic
+399;Machine Herald Viktor;League of Legends;Epic
+400;Final Boss Veigar;League of Legends;Legendary
+
+# ==================== OVERWATCH 2 ====================
+
+401;Cyber Demon Genji;Overwatch 2;Mythic
+402;Blackwatch Genji;Overwatch 2;Legendary
+403;Blackhardt Reinhardt;Overwatch 2;Legendary
+404;Dr. Junkenstein;Overwatch 2;Legendary
+405;Grim Reaper Reaper;Overwatch 2;Legendary
+406;Strike Commander Morrison;Overwatch 2;Legendary
+407;Demon Hunter Sombra;Overwatch 2;Legendary
+408;Baihu Reaper;Overwatch 2;Legendary
+409;Police Officer D.Va;Overwatch 2;Legendary
+410;Scientist Moira;Overwatch 2;Legendary
+411;Pink Mercy;Overwatch 2;Legendary
+412;Atlantic Mercy;Overwatch 2;Legendary
+413;Combat Medic Baptiste;Overwatch 2;Legendary
+414;Blackwatch Cassidy;Overwatch 2;Legendary
+415;Black Lily Widowmaker;Overwatch 2;Legendary
+416;Odette Widowmaker;Overwatch 2;Legendary
+417;Nova Widowmaker;Overwatch 2;Legendary
+418;Tyrande Symmetra;Overwatch 2;Legendary
+419;Rime Sigma;Overwatch 2;Legendary
+420;Maestro Sigma;Overwatch 2;Legendary
+421;Midas Roadhog;Overwatch 2;Legendary
+422;Immortal Orisa;Overwatch 2;Legendary
+423;Bishop Ashe;Overwatch 2;Legendary
+424;Cyber Detective Sojourn;Overwatch 2;Legendary
+425;Black Cat Sombra;Overwatch 2;Legendary
+426;Genji Sentai;Overwatch 2;Legendary
+427;Guan Yu Reinhardt;Overwatch 2;Legendary
+428;Demon Hunter Sombra;Overwatch 2;Legendary
+429;Raijin Ashe;Overwatch 2;Legendary
+430;Thunder Doomfist;Overwatch 2;Legendary
+431;Swamp Monster Roadhog;Overwatch 2;Legendary
+432;Pumpkin Reaper;Overwatch 2;Legendary
+433;Junkenstein's Monster;Overwatch 2;Legendary
+434;Cultist Zenyatta;Overwatch 2;Legendary
+435;Vampire Bat Echo;Overwatch 2;Legendary
+436;Bride of Junkenstein;Overwatch 2;Legendary
+437;Will-O'-Wisp Tracer;Overwatch 2;Legendary
+438;Blackbeard Baptiste;Overwatch 2;Legendary
+439;Mummy Ana;Overwatch 2;Legendary
+440;Pharaoh Reaper;Overwatch 2;Legendary
+441;Bastet Ana;Overwatch 2;Legendary
+442;Cabana Ana;Overwatch 2;Legendary
+443;Captain Amari Ana;Overwatch 2;Legendary
+444;Horus Ana;Overwatch 2;Legendary
+445;Sniper Ana;Overwatch 2;Legendary
+446;Carbon Fiber Genji;Overwatch 2;Epic
+447;Oni Genji;Overwatch 2;Epic
+448;Nomad Genji;Overwatch 2;Legendary
+449;Sparrow Genji;Overwatch 2;Legendary
+450;Sentai Genji;Overwatch 2;Legendary
+451;Ice Wraith Genji;Overwatch 2;Legendary
+452;Blackwatch Reyes;Overwatch 2;Legendary
+453;Soldier: 24;Overwatch 2;Legendary
+454;Slasher: 76;Overwatch 2;Legendary
+455;Grillmaster: 76;Overwatch 2;Legendary
+456;Cyberninja Hanzo;Overwatch 2;Legendary
+457;Okami Hanzo;Overwatch 2;Legendary
+458;Lone Wolf Hanzo;Overwatch 2;Legendary
+459;Kabuki Hanzo;Overwatch 2;Legendary
+460;Demon Hanzo;Overwatch 2;Legendary
+461;Black Lily Widowmaker;Overwatch 2;Legendary
+462;Kerrigan Widowmaker;Overwatch 2;Legendary
+463;Talon Widowmaker;Overwatch 2;Legendary
+464;Trick or Treat Widowmaker;Overwatch 2;Legendary
+465;Biathlete Widowmaker;Overwatch 2;Legendary
+466;Fleur de Lis Widowmaker;Overwatch 2;Legendary
+467;B-52 D.Va;Overwatch 2;Legendary
+468;Black Cat D.Va;Overwatch 2;Legendary
+469;Officer D.Va;Overwatch 2;Legendary
+470;Palanquin D.Va;Overwatch 2;Legendary
+471;Sleighing D.Va;Overwatch 2;Legendary
+472;Waveracer D.Va;Overwatch 2;Legendary
+473;Junker D.Va;Overwatch 2;Legendary
+474;Tropical Baptiste;Overwatch 2;Legendary
+475;Sideshow Baptiste;Overwatch 2;Legendary
+476;Specimen 28 Winston;Overwatch 2;Legendary
+477;Gargoyle Winston;Overwatch 2;Legendary
+478;Frogston Winston;Overwatch 2;Legendary
+479;Werewolf Winston;Overwatch 2;Legendary
+480;Explorer Winston;Overwatch 2;Legendary
+481;Blackwatch Moira;Overwatch 2;Legendary
+482;Banshee Moira;Overwatch 2;Legendary
+483;Venomous Moira;Overwatch 2;Legendary
+484;Scientist Moira;Overwatch 2;Legendary
+485;Magma Moira;Overwatch 2;Legendary
+486;Ice Empress Moira;Overwatch 2;Legendary
+487;Blackwatch Reyes;Overwatch 2;Legendary
+488;El Blanco Reaper;Overwatch 2;Legendary
+489;Nevermore Reaper;Overwatch 2;Legendary
+490;Lü Bu Reaper;Overwatch 2;Legendary
+491;Soldier: 24 Reaper;Overwatch 2;Legendary
+492;Pumpkin Reaper 2;Overwatch 2;Legendary
+493;Plague Doctor Reaper;Overwatch 2;Legendary
+494;Shin-Ryeong Kiriko;Overwatch 2;Legendary
+495;Athena Kiriko;Overwatch 2;Legendary
+496;Kitsune Kiriko;Overwatch 2;Legendary
+497;Amaterasu Kiriko;Overwatch 2;Mythic
+498;Hashimoto Kiriko;Overwatch 2;Legendary
+499;Sukajan Kiriko;Overwatch 2;Legendary
+500;Matsuri Kiriko;Overwatch 2;Legendary

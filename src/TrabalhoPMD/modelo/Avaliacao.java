@@ -7,11 +7,9 @@ public class Avaliacao extends Entidade {
     private int nota;
     private String comentario;
 
-  
-
     // Construtor completo
     public Avaliacao(int id, Usuario usuario, Skin skin,
-                     int nota, String comentario) {
+            int nota, String comentario) {
 
         super(id);
 
@@ -57,13 +55,20 @@ public class Avaliacao extends Entidade {
 
     @Override
     public String toString() {
-        return "Avaliacao{id=" + getId()
-                + ", usuario="
-                + (usuario == null ? "nenhum" : usuario.getNome())
-                + ", skin="
-                + (skin == null ? "nenhuma" : skin.getNome())
-                + ", nota=" + nota
-                + ", comentario='" + comentario + '\''
-                + '}';
+        return String.format(
+                "┌──────────────────────────────────────┐%n" +
+                        "│             AVALIAÇÃO                │%n" +
+                        "├──────────────────────────────────────┤%n" +
+                        "│ ID: %-33d │%n" +
+                        "│ Usuário: %-25s │%n" +
+                        "│ Skin: %-28s │%n" +
+                        "│ Nota: %-28d │%n" +
+                        "│ Comentário: %-22s │%n" +
+                        "└──────────────────────────────────────┘",
+                getId(),
+                usuario == null ? "Nenhum" : usuario.getNome(),
+                skin == null ? "Nenhuma" : skin.getNome(),
+                nota,
+                comentario == null ? "Nenhum" : comentario);
     }
 }

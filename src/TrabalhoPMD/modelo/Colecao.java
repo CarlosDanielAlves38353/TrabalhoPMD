@@ -51,8 +51,7 @@ public class Colecao extends Entidade {
 
         if (skin == null || quantidade <= 0) {
             throw new IllegalArgumentException(
-                    "Skin e quantidade devem ser validos."
-            );
+                    "Skin e quantidade devem ser validos.");
         }
 
         for (ItemColecao item : itens) {
@@ -60,8 +59,7 @@ public class Colecao extends Entidade {
             if (item.getSkin().getId() == skin.getId()) {
 
                 item.setQuantidade(
-                        item.getQuantidade() + quantidade
-                );
+                        item.getQuantidade() + quantidade);
 
                 return;
             }
@@ -88,14 +86,18 @@ public class Colecao extends Entidade {
 
     @Override
     public String toString() {
-        return "Colecao{id=" + getId()
-                + ", nome='" + nome + '\''
-                + ", usuario="
-                + (usuario == null
-                    ? "nenhum"
-                    : usuario.getNome())
-                + ", quantidadeDeSkins="
-                + itens.size()
-                + '}';
+        return String.format(
+                "┌──────────────────────────────────────┐%n" +
+                        "│              COLEÇÃO                 │%n" +
+                        "├──────────────────────────────────────┤%n" +
+                        "│ ID: %-33d │%n" +
+                        "│ Nome: %-29s │%n" +
+                        "│ Usuário: %-25s │%n" +
+                        "│ Quantidade de skins: %-14d │%n" +
+                        "└──────────────────────────────────────┘",
+                getId(),
+                nome,
+                usuario == null ? "Nenhum" : usuario.getNome(),
+                itens.size());
     }
 }

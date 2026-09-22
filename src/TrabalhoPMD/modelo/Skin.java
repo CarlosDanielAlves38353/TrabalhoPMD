@@ -7,7 +7,6 @@ public class Skin extends Entidade {
     private String raridade;
     private Usuario cadastradaPor;
 
- 
     // Construtor completo
     public Skin(int id, String nome, String jogo, String raridade, Usuario cadastradaPor) {
 
@@ -53,14 +52,20 @@ public class Skin extends Entidade {
 
     @Override
     public String toString() {
-        return "Skin{id=" + getId()
-                + ", nome='" + nome + '\''
-                + ", jogo='" + jogo + '\''
-                + ", raridade='" + raridade + '\''
-                + ", cadastradaPor="
-                + (cadastradaPor == null
-                    ? "nenhum"
-                    : cadastradaPor.getNome())
-                + '}';
+        return String.format(
+                "┌──────────────────────────────────────┐%n" +
+                        "│               SKIN                   │%n" +
+                        "├──────────────────────────────────────┤%n" +
+                        "│ ID: %-33d │%n" +
+                        "│ Nome: %-29s │%n" +
+                        "│ Jogo: %-29s │%n" +
+                        "│ Raridade: %-25s │%n" +
+                        "│ Cadastrada por: %-18s │%n" +
+                        "└──────────────────────────────────────┘",
+                getId(),
+                nome,
+                jogo,
+                raridade,
+                cadastradaPor == null ? "Nenhum" : cadastradaPor.getNome());
     }
 }

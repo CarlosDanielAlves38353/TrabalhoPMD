@@ -33,11 +33,5 @@ public class ItemColecao implements Serializable {
         this.quantidade = quantidade;
     }
 
-    @Override
-    public String toString() {
-        return "ItemColecao{skin="
-                + (skin == null ? "nenhuma" : skin.getNome())
-                + ", quantidade=" + quantidade
-                + "}";
-    }
+
 }

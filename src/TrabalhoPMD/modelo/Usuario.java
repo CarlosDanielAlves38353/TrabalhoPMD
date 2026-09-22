@@ -70,10 +70,14 @@ public class Usuario extends Entidade {
 
     @Override
     public String toString() {
-        return "Usuario{id=" + getId()
-                + ", nome='" + nome + '\''
-                + ", email='" + email + '\''
-                + ", perfil=" + perfil
-                + '}';
+        return "\n"
+                + "╔══════════════════════════════════════╗\n"
+                + "║              USUÁRIO                 ║\n"
+                + "╠══════════════════════════════════════╣\n"
+                + "║ ID:       " + getId() + "\n"
+                + "║ Nome:     " + nome + "\n"
+                + "║ E-mail:   " + email + "\n"
+                + "║ Perfil:   " + perfil + "\n"
+                + "╚══════════════════════════════════════╝";
     }
 }

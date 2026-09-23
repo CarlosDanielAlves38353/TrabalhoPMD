@@ -4,16 +4,15 @@ import java.io.Serializable;
 
 public class ItemColecao implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     private Skin skin;
     private int quantidade;
 
-    // Construtor
     public ItemColecao(Skin skin, int quantidade) {
         this.skin = skin;
         this.quantidade = quantidade;
     }
-
-    // Getter e setter da skin
 
     public Skin getSkin() {
         return skin;
@@ -23,8 +22,6 @@ public class ItemColecao implements Serializable {
         this.skin = skin;
     }
 
-    // Getter e setter da quantidade
-
     public int getQuantidade() {
         return quantidade;
     }
@@ -33,5 +30,12 @@ public class ItemColecao implements Serializable {
         this.quantidade = quantidade;
     }
 
-
+    @Override
+    public String toString() {
+        return String.format(
+                "Skin: %-30s | Quantidade: %d",
+                skin == null ? "Nenhuma" : skin.getNome(),
+                quantidade
+        );
+    }
 }

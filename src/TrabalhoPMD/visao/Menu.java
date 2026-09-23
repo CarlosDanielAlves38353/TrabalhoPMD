@@ -2,6 +2,7 @@ package TrabalhoPMD.visao;
 
 import TrabalhoPMD.dados.BancoDados;
 import TrabalhoPMD.dados.EntidadeDAO;
+import TrabalhoPMD.dados.LeitorDados;
 import TrabalhoPMD.modelo.Avaliacao;
 import TrabalhoPMD.modelo.Colecao;
 import TrabalhoPMD.modelo.Entidade;
@@ -38,7 +39,11 @@ public class Menu {
     public void executar() {
 
         banco.recuperarTodos();
+       
+
+        LeitorDados leitor = new LeitorDados();
         carregarSkinsTxt();
+        leitor.carregarColecoesTxt("colecoes.txt");
 
         menuInicial();
 
@@ -55,14 +60,15 @@ public class Menu {
 
         do {
             System.out.println();
-            System.out.println("=================================");
-            System.out.println("         SKIN COLLECTION");
-            System.out.println("=================================");
-            System.out.println("1 - Entrar");
-            System.out.println("2 - Criar conta");
-            System.out.println("0 - Sair");
-            System.out.println("=================================");
-            System.out.print("Opcao: ");
+            System.out.println("╔════════════════════════════════════════╗");
+            System.out.println("║             SKIN COLLECTION            ║");
+            System.out.println("╠════════════════════════════════════════╣");
+            System.out.println("║ 1 - Entrar                             ║");
+            System.out.println("║ 2 - Criar conta                        ║");
+            System.out.println("╠════════════════════════════════════════╣");
+            System.out.println("║ 0 - Sair                               ║");
+            System.out.println("╚════════════════════════════════════════╝");
+            System.out.print("Escolha uma opção: ");
 
             opcao = lerInt();
 
@@ -135,25 +141,37 @@ public class Menu {
     }
 
     private void criarConta() {
-        System.out.println();
-        System.out.println("===== CRIAR CONTA =====");
 
-        System.out.print("Nome: ");
+        System.out.println();
+
+        System.out.println("╔════════════════════════════════════════╗");
+        System.out.println("║              CRIAR CONTA               ║");
+        System.out.println("╠════════════════════════════════════════╣");
+
+        System.out.print("║ Nome: ");
         String nome = scanner.nextLine();
 
-        System.out.print("E-mail: ");
+        System.out.print("║ E-mail: ");
         String email = scanner.nextLine();
 
-        System.out.print("Senha: ");
+        System.out.print("║ Senha: ");
         String senha = scanner.nextLine();
 
-        // Verifica se o e-mail já está cadastrado
         EntidadeDAO daoUsuario = banco.getDAO(Usuario.class);
 
-        for (Entidade entidade : daoUsuario.carregar()) {
-            Usuario usuario = (Usuario) entidade;
+        boolean existeAdmin = false;
 
-            if (usuario.getEmail().equalsIgnoreCase(email)) {
+        // Verifica se já existe administrador
+        for (Entidade entidade : daoUsuario.carregar()) {
+
+            Usuario usuarioExistente = (Usuario) entidade;
+
+            if (usuarioExistente.getPerfil() == Perfil.ADMIN) {
+                existeAdmin = true;
+            }
+
+            // Verifica e-mail duplicado
+            if (usuarioExistente.getEmail().equalsIgnoreCase(email)) {
                 System.out.println();
                 System.out.println("[ERRO] Este e-mail já está cadastrado.");
                 return;
@@ -162,19 +180,39 @@ public class Menu {
 
         int id = proximoId(Usuario.class);
 
+        Perfil perfil;
+
+        // Se não existir nenhum administrador,
+        // a primeira conta será ADMIN.
+        if (!existeAdmin) {
+            perfil = Perfil.ADMIN;
+        } else {
+            perfil = Perfil.USUARIO;
+        }
+
         Usuario usuario = new Usuario(
                 id,
                 nome,
                 email,
                 senha,
-                TrabalhoPMD.modelo.Perfil.USUARIO);
+                perfil);
 
         if (daoUsuario.salvar(usuario)) {
+
             System.out.println();
-            System.out.println("[OK] Conta criada com sucesso!");
+
+            if (perfil == Perfil.ADMIN) {
+                System.out.println("[OK] Primeiro administrador criado com sucesso!");
+            } else {
+                System.out.println("[OK] Conta criada com sucesso!");
+            }
+
             System.out.println("Seu ID: " + id);
+            System.out.println("Perfil: " + perfil);
             System.out.println("Agora você já pode fazer login.");
+
         } else {
+
             System.out.println();
             System.out.println("[ERRO] Não foi possível criar a conta.");
         }
@@ -195,7 +233,7 @@ public class Menu {
             System.out.println("║ Perfil: " + usuarioLogado.getPerfil());
             System.out.println("╠══════════════════════════════════════╣");
             System.out.println("║ 1 - Explorar skins                   ║");
-            System.out.println("║ 2 - Pesquisar skin                    ║");
+            System.out.println("║ 2 - Pesquisar skin                   ║");
             System.out.println("║ 3 - Minha coleção                    ║");
             System.out.println("║ 4 - Meu perfil                       ║");
             System.out.println("║ 0 - Logout                           ║");
@@ -1095,12 +1133,12 @@ public class Menu {
 
             System.out.println();
             System.out.println("╔════════════════════════════════════════╗");
-            System.out.println("║          EXPLORAR SKINS                ║");
+            System.out.println("║           EXPLORAR SKINS               ║");
             System.out.println("╠════════════════════════════════════════╣");
 
             for (int i = 0; i < jogos.size(); i++) {
                 System.out.printf(
-                        "║ %2d - %-32s ║%n",
+                        "║ %2d - %-32s  ║%n",
                         i + 1,
                         jogos.get(i));
             }
@@ -1146,22 +1184,22 @@ public class Menu {
                     System.out.println("┌────────────────────────────────────────┐");
 
                     System.out.printf(
-                            "│ #%d - %-34s │%n",
+                            "│ #%d - %-34s│%n",
                             skin.getId(),
                             limitarTexto(skin.getNome(), 34));
 
                     System.out.println("├────────────────────────────────────────┤");
 
                     System.out.printf(
-                            "│ Jogo:     %-29s │%n",
+                            "│ Jogo:     %-29s│%n",
                             limitarTexto(skin.getJogo(), 29));
 
                     System.out.printf(
-                            "│ Raridade: %-29s │%n",
+                            "│ Raridade: %-29s│%n",
                             limitarTexto(skin.getRaridade(), 29));
 
                     System.out.printf(
-                            "│ Avaliação: ★ %.1f / 10.0               │%n",
+                            "│ Avaliação: ★ %.1f / 10.0                │%n",
                             calcularMedia(skin));
 
                     System.out.println("└────────────────────────────────────────┘");
@@ -1517,27 +1555,6 @@ public class Menu {
     }
 
     private void pesquisarSkin() {
-        System.out.println();
-        System.out.println("========================================");
-        System.out.println("           PESQUISAR SKINS");
-        System.out.println("========================================");
-        System.out.println("1 - Pesquisar por nome");
-        System.out.println("2 - Pesquisar por jogo");
-        System.out.println("3 - Pesquisar por raridade");
-        System.out.println("0 - Voltar");
-        System.out.println("========================================");
-        System.out.println("========================================");
-
-        int opcao = lerInt("Escolha uma opção: ");
-
-        if (opcao == 0) {
-            return;
-        }
-
-        if (opcao < 1 || opcao > 3) {
-            System.out.println("[ERRO] Opção inválida.");
-            return;
-        }
 
         System.out.println("Digite o que deseja pesquisar: ");
         String busca = scanner.nextLine();
@@ -1562,22 +1579,7 @@ public class Menu {
 
             String valor;
 
-            switch (opcao) {
-                case 1:
-                    valor = skin.getNome();
-                    break;
-
-                case 2:
-                    valor = skin.getJogo();
-                    break;
-
-                case 3:
-                    valor = skin.getRaridade();
-                    break;
-
-                default:
-                    continue;
-            }
+            valor = skin.getNome();
 
             if (valor != null
                     && valor.toLowerCase().contains(busca.toLowerCase())) {
@@ -1585,6 +1587,9 @@ public class Menu {
                 encontrados++;
 
                 System.out.println();
+
+                double media = calcularMedia(skin);
+
                 System.out.println("┌──────────────────────────────────────┐");
                 System.out.println("│               SKIN                   │");
                 System.out.println("├──────────────────────────────────────┤");
@@ -1592,6 +1597,17 @@ public class Menu {
                 System.out.println("│ Nome: " + skin.getNome());
                 System.out.println("│ Jogo: " + skin.getJogo());
                 System.out.println("│ Raridade: " + skin.getRaridade());
+
+                if (media == 0) {
+                    System.out.println("│ Avaliação: Sem avaliações");
+                } else {
+                    int notaArredondada = (int) Math.round(media);
+
+                    System.out.println("│ Avaliação: "
+                            + gerarEstrelas(notaArredondada)
+                            + " " + String.format("%.1f/10", media));
+                }
+
                 System.out.println("└──────────────────────────────────────┘");
             }
         }

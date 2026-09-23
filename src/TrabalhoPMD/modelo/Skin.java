@@ -8,16 +8,19 @@ public class Skin extends Entidade {
     private Usuario cadastradaPor;
 
     // Construtor completo
-    public Skin(int id, String nome, String jogo, String raridade, Usuario cadastradaPor) {
+    public Skin(int id, String nome, String jogo, String raridade,
+                Usuario cadastradaPor) {
 
         super(id);
+
         this.nome = nome;
         this.jogo = jogo;
         this.raridade = raridade;
         this.cadastradaPor = cadastradaPor;
     }
 
-    // Getters e setter
+    // Getters e setters
+
     public String getNome() {
         return nome;
     }
@@ -52,20 +55,25 @@ public class Skin extends Entidade {
 
     @Override
     public String toString() {
+
         return String.format(
                 "┌──────────────────────────────────────┐%n" +
-                        "│               SKIN                   │%n" +
-                        "├──────────────────────────────────────┤%n" +
-                        "│ ID: %-33d │%n" +
-                        "│ Nome: %-29s │%n" +
-                        "│ Jogo: %-29s │%n" +
-                        "│ Raridade: %-25s │%n" +
-                        "│ Cadastrada por: %-18s │%n" +
-                        "└──────────────────────────────────────┘",
+                "│               SKIN                   │%n" +
+                "├──────────────────────────────────────┤%n" +
+                "│ ID: %-33d │%n" +
+                "│ Nome: %-29s │%n" +
+                "│ Jogo: %-29s │%n" +
+                "│ Raridade: %-25s │%n" +
+                "│ Cadastrada por: %-18s │%n" +
+                "└──────────────────────────────────────┘",
+
                 getId(),
                 nome,
                 jogo,
                 raridade,
-                cadastradaPor == null ? "Nenhum" : cadastradaPor.getNome());
+                cadastradaPor == null
+                        ? "Nenhum"
+                        : cadastradaPor.getNome()
+        );
     }
 }

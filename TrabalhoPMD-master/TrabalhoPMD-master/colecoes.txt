@@ -1,0 +1,103 @@
+# COLEÇÕES - TRABALHO PMD
+# Formato:
+# ID_COLECAO;ID_USUARIO;NOME_DA_COLECAO;ID_SKIN:QUANTIDADE,...
+
+1;1;Coleção Prime;1:1,21:1,22:1
+2;1;Coleção Oni;2:1
+3;1;Coleção Reaver;3:1,4:1,20:1,25:1
+4;1;Coleção Ion;5:1,18:1
+5;1;Coleção Elderflame;6:1,7:1
+6;1;Coleção RGX 11z Pro;8:1,9:1
+7;1;Coleção Glitchpop;10:1,11:1,12:1
+8;1;Coleção Singularity;13:1,14:1
+9;1;Coleção Gaia's Vengeance;15:1
+10;1;Coleção Spectrum;16:1
+11;1;Coleção Sentinels of Light;17:1
+12;1;Coleção Prelude to Chaos;19:1
+13;1;Coleção Sovereign;23:1,24:1
+14;1;Favoritas do Valorant;1:1,3:1,6:1,13:1,18:1,25:1
+
+15;2;Coleção Redline;26:1
+16;2;Coleção Asiimov;27:1,40:1,41:1
+17;2;Coleção Howl;28:1
+18;2;Coleção Fire Serpent;29:1
+19;2;Coleção Dragon Lore;30:1
+20;2;Coleção Printstream;31:1,36:1
+21;2;Coleção Neon Rider;32:1
+22;2;Coleção Hyper Beast;33:1,38:1
+23;2;Coleção Kill Confirmed;34:1
+24;2;Coleção Fade;35:1
+25;2;Coleção Lightning Strike;39:1
+26;2;Coleção Neo-Noir;42:1,43:1
+27;2;Coleção Vogue;44:1
+28;2;Coleção Bloodsport;45:1
+29;2;Coleção Golden Coil;46:1
+30;2;Coleção Containment Breach;47:1
+31;2;Coleção The Empress;48:1
+32;2;Coleção Desolate Space;49:1
+33;2;Coleção Cortex;50:1
+34;2;Favoritas do CS2;26:1,27:1,28:1,30:1,31:1,36:1
+
+35;1;Coleção Galaxy;51:1
+36;2;Coleção Black Knight;52:1
+37;1;Coleção Raven;53:1
+38;2;Coleção Drift;54:1
+39;1;Coleção Midas;55:1
+40;2;Coleção Omega;56:1
+41;2;Coleção John Wick;57:1
+42;1;Coleção Lynx;58:1
+43;2;Coleção Fishstick;59:1
+44;1;Coleção Peely;60:1
+45;2;Favoritas do Fortnite;51:1,52:1,55:1,57:1,60:1
+
+46;1;Coleção PROJECT;61:1,65:1,70:1
+47;1;Coleção Elementalist;62:1
+48;1;Coleção Star Guardian;63:1
+49;1;Coleção Dark Star;64:1
+50;1;Coleção Spirit Blossom;66:1
+51;1;Coleção K/DA;67:1
+52;1;Coleção True Damage;68:1
+53;1;Coleção High Noon;69:1
+54;1;Favoritas de League of Legends;61:1,62:1,63:1,66:1,68:1
+
+55;2;Coleção Blackwatch;71:1
+56;2;Coleção Demon Hunter;72:1
+57;2;Coleção Pink Mercy;73:1
+58;2;Coleção Cyber Demon;74:1
+59;2;Coleção Amaterasu;75:1
+60;2;Coleção Cyber Dragon;76:1
+61;2;Coleção Graffiti;77:1
+62;2;Coleção Black Cat;78:1
+63;2;Coleção Dr. Ziegler;79:1
+64;2;Coleção Genjiman;80:1
+65;2;Favoritas de Overwatch 2;71:1,73:1,74:1,75:1,78:1
+
+66;1;Coleção de Vandal;1:1,3:1,6:1,9:1,11:1,15:1,17:1,19:1
+67;1;Coleção de Phantom;2:1,8:1,13:1,16:1,20:1
+68;1;Coleção de Operator;4:1,7:1,12:1,18:1
+69;1;Coleção de Pistolas Valorant;5:1,14:1,21:1
+70;1;Coleção de Armas Brancas;25:1
+
+71;2;Coleção de AK-47;26:1,29:1,32:1,37:1,40:1,45:1,48:1
+72;2;Coleção de AWP;27:1,30:1,33:1,39:1,43:1,47:1
+73;2;Coleção de M4;28:1,31:1,38:1,41:1,46:1,49:1
+74;2;Coleção de Pistolas CS2;34:1,35:1,36:1,42:1,44:1,50:1
+
+75;1;Coleção de Skins Lendárias;51:1,52:1,53:1,54:1,55:1,56:1,57:1,58:1
+76;1;Coleção de Skins Épicas;60:1,59:1
+77;1;Coleção de Personagens Fortnite;51:1,52:1,53:1,54:1,55:1,56:1,57:1,58:1,59:1,60:1
+
+78;1;Coleção Premium Valorant;1:1,2:1,3:1,4:1,5:1,10:1,11:1,12:1,15:1,17:1,18:1,19:1,20:1,21:1,22:1,23:1,24:1,25:1
+79;2;Coleção Covert CS2;27:1,29:1,30:1,31:1,32:1,33:1,34:1,36:1,37:1,38:1,39:1,40:1,41:1,42:1,43:1,45:1,46:1,47:1,48:1
+80;1;Coleção Completa;51:1,52:1,53:1,54:1,55:1,56:1,57:1,58:1,59:1,60:1
+
+81;1;Minhas Favoritas;1:1,6:1,13:1,25:1,30:1,51:1,62:1,74:1
+82;2;Coleção Mais Rara;28:1,30:1,49:1,62:1,74:1,75:1
+83;2;Coleção para Competitivo;3:1,18:1,26:1,27:1,34:1,36:1
+84;1;Coleção de Lendas;30:1,52:1,55:1,57:1,61:1,62:1,63:1,71:1,73:1
+85;2;Coleção Favorita;3:1,19:1,27:1,31:1,45:1,55:1,68:1,74:1
+86;2;Coleção Variada;8:1,16:1,32:1,44:1,53:1,67:1,77:1
+87;1;Coleção Premium;1:1,2:1,3:1,4:1,5:1,15:1,18:1,19:1,20:1
+88;2;Coleção Exclusiva;8:1,9:1,13:1,14:1,16:1
+89;2;Coleção Mítica;74:1,75:1
+90;1;Minha Coleção Principal;1:2,3:1,6:1,13:1,18:1,25:1,30:1,36:1,51:1,62:1,74:1

@@ -1897,11 +1897,15 @@ public class Menu {
     private void apagar(
             Class<? extends Entidade> tipo) {
 
-        int id = lerInt("ID: ");
-
+      int id = lerInt("ID: ");
+        int idusuario= usuarioLogado.getId();
         Entidade removida = dao(tipo).apagar(id);
+       if(idusuario == id){
+            System.out.println(
+                    "Conta apagada com sucesso.");
+           System.exit(0);
 
-        if (removida == null) {
+       } else if (removida == null) {
 
             System.out.println(
                     "Entidade nao encontrada.");

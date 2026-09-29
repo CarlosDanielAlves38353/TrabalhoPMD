@@ -1898,9 +1898,14 @@ public class Menu {
             Class<? extends Entidade> tipo) {
 
         int id = lerInt("ID: ");
-
+        int idusuario= usuarioLogado.getId();
         Entidade removida = dao(tipo).apagar(id);
-
+       if(idusuario == id){
+            System.out.println(
+                    "Conta apagada com sucesso.");
+           System.exit(0);
+           
+       } else
         if (removida == null) {
 
             System.out.println(

@@ -60,11 +60,11 @@ public class Skin extends Entidade {
                 "┌──────────────────────────────────────┐%n" +
                 "│               SKIN                   │%n" +
                 "├──────────────────────────────────────┤%n" +
-                "│ ID: %-33d │%n" +
-                "│ Nome: %-29s │%n" +
-                "│ Jogo: %-29s │%n" +
-                "│ Raridade: %-25s │%n" +
-                "│ Cadastrada por: %-18s │%n" +
+                "│ ID: %-33d│%n" +
+                "│ Nome: %-29s  │%n" +
+                "│ Jogo: %-29s  │%n" +
+                "│ Raridade: %-25s  │%n" +
+                "│ Cadastrada por: %-18s    │%n" +
                 "└──────────────────────────────────────┘",
 
                 getId(),

@@ -90,10 +90,10 @@ public class Colecao extends Entidade {
                 "┌──────────────────────────────────────┐%n" +
                         "│              COLEÇÃO                 │%n" +
                         "├──────────────────────────────────────┤%n" +
-                        "│ ID: %-33d │%n" +
-                        "│ Nome: %-29s │%n" +
-                        "│ Usuário: %-25s │%n" +
-                        "│ Quantidade de skins: %-14d │%n" +
+                        "│ ID: %-33d│%n" +
+                        "│ Nome: %-29s  │%n" +
+                        "│ Usuário: %-25s   │%n" +
+                        "│ Quantidade de skins: %-14d  │%n" +
                         "└──────────────────────────────────────┘",
                 getId(),
                 nome,

@@ -16,7 +16,7 @@ import java.util.Set;
 public class EntidadeDAO {
 
     private Set<Entidade> entidades;
-    private final Class<? extends Entidade> tipo; // ? = Ela rejeitaria classes filhas da classe Entidade
+    private final Class<? extends Entidade> tipo;
     private final String arquivo;
 
     public EntidadeDAO(Class<? extends Entidade> tipo) {

@@ -59,11 +59,11 @@ public class Avaliacao extends Entidade {
                 "┌──────────────────────────────────────┐%n" +
                         "│             AVALIAÇÃO                │%n" +
                         "├──────────────────────────────────────┤%n" +
-                        "│ ID: %-33d │%n" +
-                        "│ Usuário: %-25s │%n" +
-                        "│ Skin: %-28s │%n" +
-                        "│ Nota: %-28d │%n" +
-                        "│ Comentário: %-22s │%n" +
+                        "│ ID: %-33d│%n" +
+                        "│ Usuário: %-25s   │%n" +
+                        "│ Skin: %-28s   │%n" +
+                        "│ Nota: %-28d   │%n" +
+                        "│ Comentário: %-22s   │%n" +
                         "└──────────────────────────────────────┘",
                 getId(),
                 usuario == null ? "Nenhum" : usuario.getNome(),

@@ -403,50 +403,60 @@ public class Menu {
     // =============================
     // VISUALIZAR COLEÇÃO
     // ==============================
-    private void visualizarMinhaColecao(Colecao colecao) {
+   private void visualizarMinhaColecao(Colecao colecao) {
+
+    System.out.println();
+
+    System.out.println("╔════════════════════════════════════════╗");
+    System.out.println("║             MINHAS SKINS               ║");
+    System.out.println("╚════════════════════════════════════════╝");
+
+    System.out.println("Coleção: " + colecao.getNome());
+
+    if (colecao.getItens().isEmpty()) {
 
         System.out.println();
-        System.out.println("╔════════════════════════════════════════╗");
-        System.out.println("║             MINHAS SKINS               ║");
-        System.out.println("╚════════════════════════════════════════╝");
-
-        if (colecao.getItens().isEmpty()) {
-
-            System.out.println();
-            System.out.println("[INFO] Sua coleção está vazia.");
-            return;
-        }
-
-        int total = 0;
-
-        for (ItemColecao item : colecao.getItens()) {
-
-            Skin skin = item.getSkin();
-
-            System.out.println();
-            System.out.println("┌────────────────────────────────────────┐");
-            System.out.printf(
-                    "│ #%d - %-34s │%n",
-                    skin.getId(),
-                    limitarTexto(skin.getNome(), 34));
-            System.out.println("├────────────────────────────────────────┤");
-            System.out.printf(
-                    "│ Jogo:      %-28s │%n",
-                    limitarTexto(skin.getJogo(), 28));
-            System.out.printf(
-                    "│ Raridade:  %-28s │%n",
-                    limitarTexto(skin.getRaridade(), 28));
-            System.out.printf(
-                    "│ Quantidade: %-27d │%n",
-                    item.getQuantidade());
-            System.out.println("└────────────────────────────────────────┘");
-
-            total += item.getQuantidade();
-        }
-
-        System.out.println();
-        System.out.println("Total de skins: " + total);
+        System.out.println("[INFO] Sua coleção está vazia.");
+        return;
     }
+
+    int total = 0;
+
+    for (ItemColecao item : colecao.getItens()) {
+
+        Skin skin = item.getSkin();
+
+        System.out.println();
+
+        System.out.println("┌────────────────────────────────────────┐");
+
+        System.out.printf(
+                "│ #%d - %-34s│%n",
+                skin.getId(),
+                limitarTexto(skin.getNome(), 34));
+
+        System.out.println("├────────────────────────────────────────┤");
+
+        System.out.printf(
+                "│ Jogo:      %-28s │%n",
+                limitarTexto(skin.getJogo(), 28));
+
+        System.out.printf(
+                "│ Raridade:  %-28s │%n",
+                limitarTexto(skin.getRaridade(), 28));
+
+        System.out.printf(
+                "│ Quantidade: %-27d │%n",
+                item.getQuantidade());
+
+        System.out.println("└────────────────────────────────────────┘");
+
+        total += item.getQuantidade();
+    }
+
+    System.out.println();
+    System.out.println("Total de skins: " + total);
+}
 
     // =============================
     // ADICIONAR SKIN COLEÇÃO
@@ -1248,11 +1258,11 @@ public class Menu {
                 System.out.println();
 
                 System.out.println("╔════════════════════════════════════════╗");
-                System.out.println("║              AÇÕES                    ║");
+                System.out.println("║              AÇÕES                     ║");
                 System.out.println("╠════════════════════════════════════════╣");
-                System.out.println("║ 1 - Ver detalhes de uma skin          ║");
-                System.out.println("║ 2 - Avaliar uma skin                  ║");
-                System.out.println("║ 3 - Ver avaliações                    ║");
+                System.out.println("║ 1 - Ver detalhes de uma skin           ║");
+                System.out.println("║ 2 - Avaliar uma skin                   ║");
+                System.out.println("║ 3 - Ver avaliações                     ║");
                 System.out.println("║ 0 - Voltar                             ║");
                 System.out.println("╚════════════════════════════════════════╝");
 

@@ -62,6 +62,7 @@ public class LeitorDados {
 
                     String nome = partes[2];
 
+                    // Verifica se o objeto é uma coleção do tipo Set, independente do tipo dos elementos
                     Usuario usuario =
                             (Usuario) daoUsuario.buscar(idUsuario);
 

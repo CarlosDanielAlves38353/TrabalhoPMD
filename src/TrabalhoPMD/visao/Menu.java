@@ -239,6 +239,7 @@ public class Menu {
             System.out.println("║ 2 - Pesquisar skin                   ║");
             System.out.println("║ 3 - Minha coleção                    ║");
             System.out.println("║ 4 - Meu perfil                       ║");
+            System.out.println("║ 5 - Abrir caixas                     ║");
             System.out.println("║ 0 - Logout                           ║");
             System.out.println("╚══════════════════════════════════════╝");
             System.out.print("Escolha: ");
@@ -263,6 +264,10 @@ public class Menu {
                     System.out.println(usuarioLogado);
                     break;
 
+                case 5:
+                    abrirCaixas();
+                    break;
+
                 case 0:
                     usuarioLogado = null;
                     System.out.println("Logout realizado.");
@@ -272,6 +277,21 @@ public class Menu {
                     System.out.println("Opcao invalida.");
             }
         }
+    }
+
+    private void abrirCaixas() {
+
+        if (usuarioLogado == null) {
+            System.out.println("[ERRO] Nenhum usuário está logado.");
+            return;
+        }
+
+        Usuario usuario = usuarioLogado;
+
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            TelaCaixas tela = new TelaCaixas(usuario);
+            tela.setVisible(true);
+        });
     }
 
     private void menuPrincipalAdmin() {

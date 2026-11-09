@@ -494,7 +494,7 @@ public class TelaCaixasVisual extends javax.swing.JFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanelPrincipal = new javax.swing.JPanel();
@@ -797,9 +797,9 @@ public class TelaCaixasVisual extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>
+    }//GEN-END:initComponents
 
-    // Variables declaration - do not modify
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton abrirButton;
     private javax.swing.JLabel caixaLabel;
     private javax.swing.JLabel detalheResultadoLabel;
@@ -819,5 +819,5 @@ public class TelaCaixasVisual extends javax.swing.JFrame {
     private javax.swing.JComboBox<Caixa> seletorCaixaComboBox;
     private javax.swing.JLabel subtituloLabel;
     private javax.swing.JLabel tituloLabel;
-    // End of variables declaration
+    // End of variables declaration//GEN-END:variables
 }

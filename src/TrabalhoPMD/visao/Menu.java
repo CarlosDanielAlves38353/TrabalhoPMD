@@ -289,7 +289,7 @@ public class Menu {
         Usuario usuario = usuarioLogado;
 
         javax.swing.SwingUtilities.invokeLater(() -> {
-            TelaCaixas tela = new TelaCaixas(usuario);
+            TelaCaixasVisual tela = new TelaCaixasVisual(usuario);
             tela.setVisible(true);
         });
     }

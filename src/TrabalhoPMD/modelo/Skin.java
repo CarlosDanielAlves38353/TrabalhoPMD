@@ -1,15 +1,26 @@
+
 package TrabalhoPMD.modelo;
 
 public class Skin extends Entidade {
+
+    private static final long serialVersionUID = -4731270119128210323L; /*- preserva a compatibilidade com os dados serializados pela versão anterior dessa classe. */
 
     private String nome;
     private String jogo;
     private String raridade;
     private Usuario cadastradaPor;
+    private String imagemUrl;
 
-    // Construtor completo
+    // Construtor original
     public Skin(int id, String nome, String jogo, String raridade,
                 Usuario cadastradaPor) {
+
+        this(id, nome, jogo, raridade, cadastradaPor, null);
+    }
+
+    // Novo construtor com imagem
+    public Skin(int id, String nome, String jogo, String raridade,
+                Usuario cadastradaPor, String imagemUrl) {
 
         super(id);
 
@@ -17,6 +28,7 @@ public class Skin extends Entidade {
         this.jogo = jogo;
         this.raridade = raridade;
         this.cadastradaPor = cadastradaPor;
+        this.imagemUrl = imagemUrl;
     }
 
     // Getters e setters
@@ -51,6 +63,14 @@ public class Skin extends Entidade {
 
     public void setCadastradaPor(Usuario cadastradaPor) {
         this.cadastradaPor = cadastradaPor;
+    }
+
+    public String getImagemUrl() {
+        return imagemUrl;
+    }
+
+    public void setImagemUrl(String imagemUrl) {
+        this.imagemUrl = imagemUrl;
     }
 
     @Override

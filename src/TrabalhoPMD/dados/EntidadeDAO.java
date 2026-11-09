@@ -183,7 +183,7 @@ public class EntidadeDAO {
                     + ": "
                     + e.getMessage()
             );
-
+e.printStackTrace();
             return false;
         }
     }

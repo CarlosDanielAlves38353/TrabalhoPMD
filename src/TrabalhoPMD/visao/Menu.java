@@ -12,6 +12,9 @@ import TrabalhoPMD.modelo.Skin;
 import TrabalhoPMD.modelo.Usuario;
 
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Collections;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -1123,7 +1126,7 @@ public class Menu {
         EntidadeDAO dao = banco.getDAO(Skin.class);
         Entidade[] entidades = dao.carregar();
 
-        java.util.List<String> jogos = new java.util.ArrayList<>();
+        List<String> jogos = new ArrayList<>();
 
         // Descobre os jogos existentes
         for (Entidade entidade : entidades) {
@@ -1135,7 +1138,7 @@ public class Menu {
         }
 
         // Ordena os jogos em ordem alfabética
-        java.util.Collections.sort(jogos);
+        Collections.sort(jogos);
 
         int opcao = -1;
 

@@ -3,6 +3,8 @@ package TrabalhoPMD.modelo;
 
 public class Skin extends Entidade {
 
+
+    /*Alterar DPS */
     private static final long serialVersionUID = -4731270119128210323L; /*- preserva a compatibilidade com os dados serializados pela versão anterior dessa classe. */
 
     private String nome;

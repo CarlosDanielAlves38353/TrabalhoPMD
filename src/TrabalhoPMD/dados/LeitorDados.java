@@ -10,7 +10,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class LeitorDados {
-
+//ta certo
     private BancoDados banco;
 
     public LeitorDados() {

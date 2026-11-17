@@ -134,18 +134,11 @@ public class AtualizadorSkinsLeagueOfLegends {
             }
 
             // Salva as alterações
-            if (daoSkin.persistir()) {
+            daoSkin.persistir();
 
-                System.out.println(
-                        "\nImagens salvas com sucesso!"
-                );
-
-            } else {
-
-                System.out.println(
-                        "\nErro ao salvar as imagens."
-                );
-            }
+            System.out.println(
+                    "\nImagens salvas com sucesso!"
+            );
 
             // Relatório final
             System.out.println("\n===== RELATORIO =====");
@@ -186,8 +179,8 @@ public class AtualizadorSkinsLeagueOfLegends {
 
         for (int i = 0; i < lista.size(); i++) {
 
-            JsonObject skinAPI =
-                    lista.get(i).getAsJsonObject();
+            JsonObject skinAPI
+                    = lista.get(i).getAsJsonObject();
 
             if (!skinAPI.has("displayName")
                     || skinAPI.get("displayName").isJsonNull()) {

@@ -13,7 +13,7 @@ public class BancoDados {
 
     private static BancoDados instancia;
 
-    private Map<Class<? extends Entidade>, EntidadeDAO> daos;
+    private Map<Class<? extends Entidade>, EntidadeDAO<?>> daos;
 
     // Construtor privado
     private BancoDados() {
@@ -36,35 +36,52 @@ public class BancoDados {
         return instancia;
     }
 
-    // Cria e registra um DAO para uma entidade
-    private void registrar(Class<? extends Entidade> tipo) {
+    // Registra um DAO para cada entidade
+    private <E extends Entidade> void registrar(Class<E> tipo) {
 
-        daos.put(
-                tipo,
-                new EntidadeDAO(tipo)
-        );
+        daos.put(tipo, new EntidadeDAO<>(tipo));
     }
 
-    // Retorna o DAO da entidade solicitada
-    public EntidadeDAO getDAO(
-            Class<? extends Entidade> tipo) {
+    // Retorna o DAO específico da entidade
+    @SuppressWarnings("unchecked")
+    public <E extends Entidade> EntidadeDAO<E> getDAO(Class<E> tipo) {
 
-        return daos.get(tipo);
+        EntidadeDAO<?> dao = daos.get(tipo);
+
+        if (dao == null) {
+            throw new IllegalArgumentException(
+                    "DAO não encontrado para " + tipo.getSimpleName()
+            );
+        }
+
+        return (EntidadeDAO<E>) dao;
     }
 
     // Recupera os dados de todas as entidades
     public void recuperarTodos() {
 
-        for (EntidadeDAO dao : daos.values()) {
-            dao.recuperar();
+        for (EntidadeDAO<?> dao : daos.values()) {
+
+            try {
+                dao.recuperar();
+
+            } catch (PersistenceException e) {
+                System.err.println(e.getMessage());
+            }
         }
     }
 
     // Persiste os dados de todas as entidades
     public void persistirTodos() {
 
-        for (EntidadeDAO dao : daos.values()) {
-            dao.persistir();
+        for (EntidadeDAO<?> dao : daos.values()) {
+
+            try {
+                dao.persistir();
+
+            } catch (PersistenceException e) {
+                System.err.println(e.getMessage());
+            }
         }
     }
 }

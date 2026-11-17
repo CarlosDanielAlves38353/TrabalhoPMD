@@ -8,8 +8,7 @@ public class TesteAtualizadorLeagueOfLegends {
 
         BancoDados.getInstancia().recuperarTodos();
 
-        AtualizadorSkinsLeagueOfLegends atualizador =
-                new AtualizadorSkinsLeagueOfLegends();
+        AtualizadorSkinsLeagueOfLegends atualizador = new AtualizadorSkinsLeagueOfLegends();
 
         atualizador.atualizarImagens();
     }

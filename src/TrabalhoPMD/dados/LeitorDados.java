@@ -1,6 +1,7 @@
 package TrabalhoPMD.dados;
 
 import TrabalhoPMD.modelo.Colecao;
+import TrabalhoPMD.modelo.Entidade;
 import TrabalhoPMD.modelo.Skin;
 import TrabalhoPMD.modelo.Usuario;
 
@@ -29,12 +30,12 @@ public class LeitorDados {
      */
     public void carregarColecoesTxt(String arquivo) {
 
-        EntidadeDAO daoColecao = banco.getDAO(Colecao.class);
-        EntidadeDAO daoUsuario = banco.getDAO(Usuario.class);
-        EntidadeDAO daoSkin = banco.getDAO(Skin.class);
+        EntidadeDAO<Colecao> daoColecao = banco.getDAO(Colecao.class);
+        EntidadeDAO<Usuario> daoUsuario = banco.getDAO(Usuario.class);
+        EntidadeDAO<Skin> daoSkin = banco.getDAO(Skin.class);
 
-        try (BufferedReader leitor =
-                     new BufferedReader(new FileReader(arquivo))) {
+        try (BufferedReader leitor
+                = new BufferedReader(new FileReader(arquivo))) {
 
             String linha;
 
@@ -50,8 +51,11 @@ public class LeitorDados {
                 String[] partes = linha.split(";");
 
                 if (partes.length != 4) {
+
                     System.out.println(
-                            "[AVISO] Linha inválida no arquivo: " + linha);
+                            "[AVISO] Linha inválida no arquivo: " + linha
+                    );
+
                     continue;
                 }
 
@@ -62,46 +66,52 @@ public class LeitorDados {
 
                     String nome = partes[2];
 
-                    // Verifica se o objeto é uma coleção do tipo Set, independente do tipo dos elementos
-                    Usuario usuario =
-                            (Usuario) daoUsuario.buscar(idUsuario);
+                    // Busca o usuário pelo ID
+                    Usuario usuario
+                            = buscarOuNull(daoUsuario, idUsuario);
 
                     if (usuario == null) {
+
                         System.out.println(
                                 "[AVISO] Usuário " + idUsuario
-                                + " não encontrado.");
+                                + " não encontrado."
+                        );
+
                         continue;
                     }
 
                     // Evita duplicar coleções
-                    if (daoColecao.buscar(idColecao) != null) {
+                    if (buscarOuNull(daoColecao, idColecao) != null) {
                         continue;
                     }
 
-                    Colecao colecao =
-                            new Colecao(idColecao, usuario, nome);
+                    // Cria uma nova coleção
+                    Colecao colecao
+                            = new Colecao(idColecao, usuario, nome);
 
                     String[] itens = partes[3].split(",");
 
+                    // Recupera as skins pertencentes à coleção
                     for (String itemTexto : itens) {
 
-                        String[] item =
-                                itemTexto.trim().split(":");
+                        String[] item
+                                = itemTexto.trim().split(":");
 
                         if (item.length != 2) {
                             continue;
                         }
 
-                        int idSkin =
-                                Integer.parseInt(item[0]);
+                        int idSkin
+                                = Integer.parseInt(item[0]);
 
-                        int quantidade =
-                                Integer.parseInt(item[1]);
+                        int quantidade
+                                = Integer.parseInt(item[1]);
 
-                        Skin skin =
-                                (Skin) daoSkin.buscar(idSkin);
+                        Skin skin
+                                = buscarOuNull(daoSkin, idSkin);
 
                         if (skin != null && quantidade > 0) {
+
                             colecao.adicionarItem(
                                     skin,
                                     quantidade
@@ -109,28 +119,57 @@ public class LeitorDados {
                         }
                     }
 
-                    if (daoColecao.salvar(colecao)) {
+                    // Salva a coleção no DAO
+                    try {
+
+                        daoColecao.salvar(colecao);
 
                         usuario.setColecao(colecao);
 
+                    } catch (PersistenceException e) {
+
+                        System.out.println(
+                                "[AVISO] Não foi possível salvar a coleção: "
+                                + e.getMessage()
+                        );
                     }
 
                 } catch (NumberFormatException e) {
 
                     System.out.println(
                             "[AVISO] Valores inválidos na linha: "
-                            + linha);
+                            + linha
+                    );
                 }
             }
 
             System.out.println(
-                    "[OK] Coleções carregadas de " + arquivo);
+                    "[OK] Coleções carregadas de " + arquivo
+            );
 
         } catch (IOException e) {
 
             System.out.println(
                     "[ERRO] Não foi possível ler " + arquivo
-                    + ": " + e.getMessage());
+                    + ": " + e.getMessage()
+            );
+        }
+    }
+
+    /**
+     * Método auxiliar para realizar buscas.
+     *
+     * Retorna null quando a entidade não é encontrada.
+     */
+    private <E extends Entidade> E buscarOuNull(EntidadeDAO<E> dao, int id) {
+
+        try {
+
+            return dao.buscar(id);
+
+        } catch (PersistenceException e) {
+
+            return null;
         }
     }
 
@@ -144,6 +183,7 @@ public class LeitorDados {
      * A planilha deve ser salva como CSV.
      */
     public void carregarColecoesPlanilha(String arquivo) {
+
         carregarColecoesTxt(arquivo);
     }
 }

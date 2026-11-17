@@ -8,8 +8,7 @@ public class TesteAtualizadorSkins {
 
         BancoDados.getInstancia().recuperarTodos();
 
-        AtualizadorSkinsValorant atualizador =
-                new AtualizadorSkinsValorant();
+        AtualizadorSkinsValorant atualizador = new AtualizadorSkinsValorant();
 
         atualizador.atualizarImagens();
     }

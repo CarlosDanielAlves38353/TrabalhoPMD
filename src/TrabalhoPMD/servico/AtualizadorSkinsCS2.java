@@ -105,18 +105,11 @@ public class AtualizadorSkinsCS2 {
                 }
             }
 
-            if (daoSkin.persistir()) {
+           daoSkin.persistir();
 
-                System.out.println(
-                        "\nImagens salvas com sucesso no banco de dados!"
-                );
-
-            } else {
-
-                System.out.println(
-                        "\nErro ao salvar as imagens."
-                );
-            }
+System.out.println(
+        "\nImagens salvas com sucesso no banco de dados!"
+);
 
             System.out.println("\n===== RELATORIO =====");
 

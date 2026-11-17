@@ -1,37 +1,178 @@
 package TrabalhoPMD.visao;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.util.HashSet;
 import java.util.Set;
 
+import TrabalhoPMD.dados.BancoDados;
+import TrabalhoPMD.dados.EntidadeDAO;
+import TrabalhoPMD.dados.PersistenceException;
+import TrabalhoPMD.modelo.Usuario;
+import TrabalhoPMD.modelo.Perfil;
+import TrabalhoPMD.visao.FrameMenuAdmin;
+import TrabalhoPMD.visao.FrameUsuarioMenu;
+
+import javax.swing.JOptionPane;
+import java.awt.Color;
+import java.awt.Font;
+
 public class FrameEntrar extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrameEntrar.class.getName());
 
-  
     public FrameEntrar() {
+
         initComponents();
-          jPanel1.setBackground(new Color(201, 214, 255));
-          Labeltitulo();
-          Labelemail();
-          labelsenha();
+
+        setTitle("Skin Collection - Login");
+        setLocationRelativeTo(null);
+
+        jPanel1.setBackground(new Color(201, 214, 255));
+
+        Labeltitulo();
+        Labelemail();
+        labelsenha();
+
+        // Permite entrar pressionando Enter
+        getRootPane().setDefaultButton(botaoEntrar);
+
+        // Personalização dos botões
+        botaoEntrar.setBackground(Color.white);
+        botaoEntrar.setForeground(new Color(32, 25, 95));
+        botaoEntrar.setFont(new Font("Arial", Font.BOLD, 18));
+        botaoEntrar.setBorderPainted(false);
+        botaoEntrar.setFocusPainted(false);
+
+        botaoVoltar.setBackground(Color.white);
+        botaoVoltar.setForeground(new Color(32, 25, 95));
+        botaoVoltar.setFont(new Font("Arial", Font.BOLD, 18));
+        botaoVoltar.setBorderPainted(false);
+        botaoVoltar.setFocusPainted(false);
     }
-    private void Labeltitulo(){
-          TituloEntrar.setFont(new Font("Arial", Font.BOLD, 24));
-          TituloEntrar.setForeground(Color.white);
-          TituloEntrar.setText("Entrar na conta");
-}
-    private void Labelemail(){
-          LabelEmail1.setFont(new Font("Arial", Font.BOLD, 24));
-          LabelEmail1.setForeground(Color.white);
-          LabelEmail1.setText("Email:");
+
+    private void Labeltitulo() {
+        TituloEntrar.setFont(new Font("Arial", Font.BOLD, 24));
+        TituloEntrar.setForeground(Color.white);
+        TituloEntrar.setText("Entrar na conta");
     }
-    private void labelsenha(){
-          LabelSenha.setFont(new Font("Arial", Font.BOLD, 24));
-          LabelSenha.setForeground(Color.white);
-          LabelSenha.setText("Senha:");
+
+    private void Labelemail() {
+        LabelEmail1.setFont(new Font("Arial", Font.BOLD, 24));
+        LabelEmail1.setForeground(Color.white);
+        LabelEmail1.setText("Email:");
     }
-   
+
+    private void labelsenha() {
+        LabelSenha.setFont(new Font("Arial", Font.BOLD, 24));
+        LabelSenha.setForeground(Color.white);
+        LabelSenha.setText("Senha:");
+    }
+
+    private void autenticar() {
+
+        String email = jTextField1.getText().trim();
+
+        String senha = new String(
+                jPasswordField1.getPassword()
+        );
+
+        // Verifica campos vazios
+        if (email.isEmpty() || senha.isEmpty()) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Informe seu e-mail e sua senha.",
+                    "Atenção",
+                    JOptionPane.WARNING_MESSAGE
+            );
+
+            return;
+        }
+
+        BancoDados banco = BancoDados.getInstancia();
+
+        EntidadeDAO<Usuario> daoUsuario
+                = banco.getDAO(Usuario.class);
+
+        try {
+
+            Usuario[] usuarios;
+
+            // Carrega os usuários cadastrados
+            try {
+
+                usuarios = daoUsuario.carregar();
+
+            } catch (PersistenceException e) {
+
+                if ("CARREGAR TODOS".equals(e.getOperacao())) {
+
+                    JOptionPane.showMessageDialog(
+                            this,
+                            "Nenhuma conta cadastrada. Crie uma conta primeiro.",
+                            "Login",
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
+
+                    return;
+                }
+
+                throw e;
+            }
+
+            // Procura o usuário
+            for (Usuario usuario : usuarios) {
+
+                if (usuario.getEmail() != null
+                        && usuario.getEmail().equalsIgnoreCase(email)
+                        && usuario.getSenha() != null
+                        && usuario.getSenha().equals(senha)) {
+
+                    abrirMenu(usuario);
+                    return;
+                }
+            }
+
+            // Nenhum usuário correspondeu às credenciais
+            JOptionPane.showMessageDialog(
+                    this,
+                    "E-mail ou senha incorretos.",
+                    "Falha no login",
+                    JOptionPane.ERROR_MESSAGE
+            );
+
+            jPasswordField1.setText("");
+
+        } catch (PersistenceException e) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Erro ao consultar os dados:\n"
+                    + e.getMessage(),
+                    "Erro de persistência",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
+
+    private void abrirMenu(Usuario usuario) {
+        if (usuario.getPerfil() == Perfil.ADMIN) {
+            
+            FrameMenuAdmin tela = new FrameMenuAdmin(usuario);
+            tela.setLocationRelativeTo(null);
+            tela.setVisible(true);
+            
+        } else {
+            
+            FrameUsuarioMenu tela = new FrameUsuarioMenu(usuario);
+            tela.setLocationRelativeTo(null);
+            tela.setVisible(true);
+        }
+
+        this.dispose();
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -43,6 +184,8 @@ public class FrameEntrar extends javax.swing.JFrame {
         LabelEmail1 = new javax.swing.JLabel();
         jPasswordField1 = new javax.swing.JPasswordField();
         jTextField1 = new javax.swing.JTextField();
+        botaoVoltar = new javax.swing.JButton();
+        botaoEntrar = new javax.swing.JButton();
 
         jLabel1.setText("jLabel1");
 
@@ -59,25 +202,39 @@ public class FrameEntrar extends javax.swing.JFrame {
 
         jTextField1.addActionListener(this::jTextField1ActionPerformed);
 
+        botaoVoltar.setText("Voltar");
+        botaoVoltar.addActionListener(this::botaoVoltarActionPerformed);
+
+        botaoEntrar.setText("Entrar");
+        botaoEntrar.addActionListener(this::botaoEntrarActionPerformed);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(272, Short.MAX_VALUE)
+                .addContainerGap(312, Short.MAX_VALUE)
                 .addComponent(TituloEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(230, 230, 230))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(96, 96, 96)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(LabelEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField1))
+                        .addGap(96, 96, 96)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(LabelEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextField1))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(LabelSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(LabelSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap()
+                        .addComponent(botaoVoltar))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(289, 289, 289)
+                        .addComponent(botaoEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -93,16 +250,18 @@ public class FrameEntrar extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(LabelSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(224, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
+                .addComponent(botaoEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53)
+                .addComponent(botaoVoltar)
+                .addGap(33, 33, 33))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 886, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,7 +275,21 @@ public class FrameEntrar extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-   
+    private void botaoVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarActionPerformed
+
+        FramePrincipal tela = new FramePrincipal();
+
+        tela.setLocationRelativeTo(null);
+        tela.setVisible(true);
+
+        this.dispose();
+    }//GEN-LAST:event_botaoVoltarActionPerformed
+
+    private void botaoEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEntrarActionPerformed
+
+        autenticar();
+    }//GEN-LAST:event_botaoEntrarActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -143,6 +316,8 @@ public class FrameEntrar extends javax.swing.JFrame {
     private javax.swing.JLabel LabelEmail1;
     private javax.swing.JLabel LabelSenha;
     private javax.swing.JLabel TituloEntrar;
+    private javax.swing.JButton botaoEntrar;
+    private javax.swing.JButton botaoVoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jPasswordField1;

@@ -1,76 +1,106 @@
-
 package TrabalhoPMD.visao;
+
+import TrabalhoPMD.modelo.Usuario;
 
 import java.awt.Color;
 import java.awt.Font;
 
-
 public class FrameMenuAdmin extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrameMenuAdmin.class.getName());
 
-   
+    private Usuario usuarioLogado;
+
     public FrameMenuAdmin() {
+        this(null);
+    }
+
+    public FrameMenuAdmin(Usuario usuario) {
+
         initComponents();
+
+        this.usuarioLogado = usuario;
+
+        setTitle("Skin Collection - Administrador");
+        setLocationRelativeTo(null);
+
         jPanel1.setBackground(new Color(201, 214, 255));
+
         Labeltitulo();
         DesingBotUsuario();
         DesingBotSkin();
         DesingBotaval();
         DesingBotCol();
         DesingBotEx();
-        DesingBotCol();
         DesingBotAdm();
     }
-private void Labeltitulo(){
-          TituloAdm.setFont(new Font("Arial", Font.BOLD, 30));
-          TituloAdm.setForeground(Color.white);
-          TituloAdm.setText("Entrar na conta");
-}
-   private void DesingBotUsuario(){
-      ButUsuario.setText("Gerenciar Usuários");
-      ButUsuario.setBackground(Color.white);
-      ButUsuario.setFont(new Font("Arial", Font.BOLD, 16));
-      ButUsuario.setBorderPainted(false);
-      ButUsuario.setFocusPainted(false);
-   
-   }
-    private void DesingBotSkin(){
-      Butskin.setText("Gerenciar Skins");
-      Butskin.setBackground(Color.white);
-      Butskin.setFont(new Font("Arial", Font.BOLD, 16));
-      Butskin.setBorderPainted(false);
-      Butskin.setFocusPainted(false);
-   }
-       private void DesingBotaval(){
-      Butavali.setText("Gerenciar Avaliações");
-      Butavali.setBackground(Color.white);
-      Butavali.setFont(new Font("Arial", Font.BOLD, 16));
-      Butavali.setBorderPainted(false);
-      Butavali.setFocusPainted(false);
-   }
-      private void DesingBotCol(){
-      Butcol.setText("Gerenciar Coleções");
-      Butcol.setBackground(Color.white);
-      Butcol.setFont(new Font("Arial", Font.BOLD, 16));
-      Butcol.setBorderPainted(false);
-      Butcol.setFocusPainted(false);
-   }
-      
-       private void DesingBotEx(){
-      Butexplo.setText("Explorar Skins");
-      Butexplo.setBackground(Color.white);
-      Butexplo.setFont(new Font("Arial", Font.BOLD, 16));
-      Butexplo.setBorderPainted(false);
-      Butexplo.setFocusPainted(false);
-   }
-      private void DesingBotAdm(){
-      Butcriaradm.setText("Criar administrador");
-      Butcriaradm.setBackground(Color.white);
-      Butcriaradm.setFont(new Font("Arial", Font.BOLD, 16));
-      Butcriaradm.setBorderPainted(false);
-      Butcriaradm.setFocusPainted(false);
-   }
+
+    private void Labeltitulo() {
+
+        TituloAdm.setFont(new Font("Arial", Font.BOLD, 30));
+        TituloAdm.setForeground(Color.white);
+
+        if (usuarioLogado != null) {
+
+            TituloAdm.setText(
+                    "Olá, " + usuarioLogado.getNome()
+            );
+
+        } else {
+
+            TituloAdm.setText("Painel Administrativo");
+        }
+    }
+
+    private void DesingBotUsuario() {
+        ButUsuario.setText("Gerenciar Usuários");
+        ButUsuario.setBackground(Color.white);
+        ButUsuario.setFont(new Font("Arial", Font.BOLD, 16));
+        ButUsuario.setBorderPainted(false);
+        ButUsuario.setFocusPainted(false);
+
+    }
+
+    private void DesingBotSkin() {
+        Butskin.setText("Gerenciar Skins");
+        Butskin.setBackground(Color.white);
+        Butskin.setFont(new Font("Arial", Font.BOLD, 16));
+        Butskin.setBorderPainted(false);
+        Butskin.setFocusPainted(false);
+    }
+
+    private void DesingBotaval() {
+        Butavali.setText("Gerenciar Avaliações");
+        Butavali.setBackground(Color.white);
+        Butavali.setFont(new Font("Arial", Font.BOLD, 16));
+        Butavali.setBorderPainted(false);
+        Butavali.setFocusPainted(false);
+    }
+
+    private void DesingBotCol() {
+        Butcol.setText("Gerenciar Coleções");
+        Butcol.setBackground(Color.white);
+        Butcol.setFont(new Font("Arial", Font.BOLD, 16));
+        Butcol.setBorderPainted(false);
+        Butcol.setFocusPainted(false);
+    }
+
+    private void DesingBotEx() {
+        Butexplo.setText("Explorar Skins");
+        Butexplo.setBackground(Color.white);
+        Butexplo.setFont(new Font("Arial", Font.BOLD, 16));
+        Butexplo.setBorderPainted(false);
+        Butexplo.setFocusPainted(false);
+    }
+
+    private void DesingBotAdm() {
+        Butcriaradm.setText("Criar administrador");
+        Butcriaradm.setBackground(Color.white);
+        Butcriaradm.setFont(new Font("Arial", Font.BOLD, 16));
+        Butcriaradm.setBorderPainted(false);
+        Butcriaradm.setFocusPainted(false);
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -98,7 +128,8 @@ private void Labeltitulo(){
 
         Butcol.setText("jButton1");
 
-        ButUsuario.setText("jButton1");
+        ButUsuario.setText("Gerenciar Usuarios");
+        ButUsuario.addActionListener(this::ButUsuarioActionPerformed);
 
         Butskin.setText("jButton1");
         Butskin.addActionListener(this::ButskinActionPerformed);
@@ -190,7 +221,16 @@ private void Labeltitulo(){
         // TODO add your handling code here:
     }//GEN-LAST:event_ButcriaradmActionPerformed
 
-   
+    private void ButUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButUsuarioActionPerformed
+        // TODO add your handling code here:
+        FrameGerenciarUsuarios tela = new FrameGerenciarUsuarios(usuarioLogado);
+
+        tela.setLocationRelativeTo(null);
+        tela.setVisible(true);
+
+        this.dispose();
+    }//GEN-LAST:event_ButUsuarioActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

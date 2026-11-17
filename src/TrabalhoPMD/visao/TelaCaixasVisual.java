@@ -27,6 +27,8 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 import javax.swing.Timer;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 /**
  * Janela de abertura de caixas.
@@ -493,6 +495,41 @@ public class TelaCaixasVisual extends javax.swing.JFrame {
         dispose();
     }
 
+    
+
+    public static void main(String[] args) {
+
+        SwingUtilities.invokeLater(() -> {
+
+            try {
+                // Define o visual padrão do sistema
+                UIManager.setLookAndFeel(
+                    UIManager.getSystemLookAndFeelClassName()
+                );
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            // Cria um usuário apenas para testes
+            Usuario usuarioTeste = new Usuario(
+                1,
+                "Usuario Teste",
+                "teste@email.com",
+                "123456"
+            );
+
+            // Abre a tela de caixas com o usuário de teste
+            TelaCaixasVisual tela = new TelaCaixasVisual(usuarioTeste);
+
+            tela.setLocationRelativeTo(null);
+            tela.setVisible(true);
+        });
+    }
+
+
+    
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -501,9 +538,8 @@ public class TelaCaixasVisual extends javax.swing.JFrame {
         tituloLabel = new javax.swing.JLabel();
         subtituloLabel = new javax.swing.JLabel();
         caixaLabel = new javax.swing.JLabel();
-        seletorCaixaComboBox = new javax.swing.JComboBox<>();
+        seletorCaixaComboBox = new javax.swing.JComboBox();
         probabilidadesLabel = new javax.swing.JLabel();
-
         roletaSkin1 = new javax.swing.JLabel();
         roletaSkin2 = new javax.swing.JLabel();
         roletaSkin3 = new javax.swing.JLabel();
@@ -511,12 +547,10 @@ public class TelaCaixasVisual extends javax.swing.JFrame {
         roletaSkin5 = new javax.swing.JLabel();
         roletaSkin6 = new javax.swing.JLabel();
         roletaSkin7 = new javax.swing.JLabel();
-
         statusLabel = new javax.swing.JLabel();
         imagemPremioLabel = new javax.swing.JLabel();
         resultadoLabel = new javax.swing.JLabel();
         detalheResultadoLabel = new javax.swing.JLabel();
-
         abrirButton = new javax.swing.JButton();
         fecharButton = new javax.swing.JButton();
 
@@ -535,28 +569,29 @@ public class TelaCaixasVisual extends javax.swing.JFrame {
 
         caixaLabel.setText("CAIXA:");
 
-        seletorCaixaComboBox.setModel(
-                new javax.swing.DefaultComboBoxModel<>());
+        seletorCaixaComboBox.addActionListener(this::seletorCaixaComboBoxActionPerformed);
 
-        seletorCaixaComboBox.addActionListener(
-                this::seletorCaixaComboBoxActionPerformed);
-
-        probabilidadesLabel.setHorizontalAlignment(
-                javax.swing.SwingConstants.CENTER);
+        probabilidadesLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         probabilidadesLabel.setText("Probabilidades da caixa");
 
         roletaSkin1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         roletaSkin1.setText("Aguardando...");
+
         roletaSkin2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         roletaSkin2.setText("Aguardando...");
+
         roletaSkin3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         roletaSkin3.setText("Aguardando...");
+
         roletaSkin4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         roletaSkin4.setText("RESULTADO");
+
         roletaSkin5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         roletaSkin5.setText("Aguardando...");
+
         roletaSkin6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         roletaSkin6.setText("Aguardando...");
+
         roletaSkin7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         roletaSkin7.setText("Aguardando...");
 
@@ -576,228 +611,97 @@ public class TelaCaixasVisual extends javax.swing.JFrame {
         fecharButton.setText("FECHAR");
         fecharButton.addActionListener(this::fecharButtonActionPerformed);
 
-        javax.swing.GroupLayout jPanelPrincipalLayout =
-                new javax.swing.GroupLayout(jPanelPrincipal);
-
+        javax.swing.GroupLayout jPanelPrincipalLayout = new javax.swing.GroupLayout(jPanelPrincipal);
         jPanelPrincipal.setLayout(jPanelPrincipalLayout);
-
         jPanelPrincipalLayout.setHorizontalGroup(
-            jPanelPrincipalLayout.createParallelGroup(
-                    javax.swing.GroupLayout.Alignment.LEADING)
+            jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelPrincipalLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addGroup(jPanelPrincipalLayout.createParallelGroup(
-                        javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tituloLabel,
-                            javax.swing.GroupLayout.DEFAULT_SIZE,
-                            javax.swing.GroupLayout.DEFAULT_SIZE,
-                            Short.MAX_VALUE)
-                    .addComponent(subtituloLabel,
-                            javax.swing.GroupLayout.DEFAULT_SIZE,
-                            javax.swing.GroupLayout.DEFAULT_SIZE,
-                            Short.MAX_VALUE)
+                .addGroup(jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tituloLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(subtituloLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanelPrincipalLayout.createSequentialGroup()
-                        .addComponent(caixaLabel,
-                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                70,
-                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(seletorCaixaComboBox,
-                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                310,
-                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(probabilidadesLabel,
-                            javax.swing.GroupLayout.DEFAULT_SIZE,
-                            javax.swing.GroupLayout.DEFAULT_SIZE,
-                            Short.MAX_VALUE)
-                    .addGroup(jPanelPrincipalLayout.createSequentialGroup()
-                        .addComponent(roletaSkin1,
-                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                140,
-                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(8, 8, 8)
-                        .addComponent(roletaSkin2,
-                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                140,
-                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(8, 8, 8)
-                        .addComponent(roletaSkin3,
-                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                140,
-                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(8, 8, 8)
-                        .addComponent(roletaSkin4,
-                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                140,
-                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(8, 8, 8)
-                        .addComponent(roletaSkin5,
-                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                140,
-                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(8, 8, 8)
-                        .addComponent(roletaSkin6,
-                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                140,
-                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(8, 8, 8)
-                        .addComponent(roletaSkin7,
-                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                140,
-                                javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(statusLabel,
-                            javax.swing.GroupLayout.DEFAULT_SIZE,
-                            javax.swing.GroupLayout.DEFAULT_SIZE,
-                            Short.MAX_VALUE)
-                    .addGroup(jPanelPrincipalLayout.createSequentialGroup()
-                        .addComponent(imagemPremioLabel,
-                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                210,
-                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(16, 16, 16)
-                        .addGroup(jPanelPrincipalLayout.createParallelGroup(
-                                javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(resultadoLabel,
-                                    javax.swing.GroupLayout.DEFAULT_SIZE,
-                                    380,
-                                    Short.MAX_VALUE)
-                            .addComponent(detalheResultadoLabel,
-                                    javax.swing.GroupLayout.DEFAULT_SIZE,
-                                    380,
-                                    Short.MAX_VALUE))
+                        .addComponent(caixaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(abrirButton,
-                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                160,
-                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(seletorCaixaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(probabilidadesLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanelPrincipalLayout.createSequentialGroup()
+                        .addComponent(roletaSkin1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)
+                        .addComponent(roletaSkin2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)
+                        .addComponent(roletaSkin3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)
+                        .addComponent(roletaSkin4, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)
+                        .addComponent(roletaSkin5, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)
+                        .addComponent(roletaSkin6, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)
+                        .addComponent(roletaSkin7, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(statusLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanelPrincipalLayout.createSequentialGroup()
+                        .addComponent(imagemPremioLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(resultadoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(detalheResultadoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(abrirButton, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)
-                        .addComponent(fecharButton,
-                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                100,
-                                javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(fecharButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(24, 24, 24))
         );
-
         jPanelPrincipalLayout.setVerticalGroup(
-            jPanelPrincipalLayout.createParallelGroup(
-                    javax.swing.GroupLayout.Alignment.LEADING)
+            jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelPrincipalLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(tituloLabel,
-                        javax.swing.GroupLayout.PREFERRED_SIZE,
-                        40,
-                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tituloLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
-                .addComponent(subtituloLabel,
-                        javax.swing.GroupLayout.PREFERRED_SIZE,
-                        25,
-                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(subtituloLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
-                .addGroup(jPanelPrincipalLayout.createParallelGroup(
-                        javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(caixaLabel,
-                            javax.swing.GroupLayout.PREFERRED_SIZE,
-                            30,
-                            javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seletorCaixaComboBox,
-                            javax.swing.GroupLayout.PREFERRED_SIZE,
-                            34,
-                            javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(caixaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seletorCaixaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8)
-                .addComponent(probabilidadesLabel,
-                        javax.swing.GroupLayout.PREFERRED_SIZE,
-                        45,
-                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(probabilidadesLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14)
-                .addGroup(jPanelPrincipalLayout.createParallelGroup(
-                        javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(roletaSkin1,
-                            javax.swing.GroupLayout.PREFERRED_SIZE,
-                            205,
-                            javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(roletaSkin2,
-                            javax.swing.GroupLayout.PREFERRED_SIZE,
-                            205,
-                            javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(roletaSkin3,
-                            javax.swing.GroupLayout.PREFERRED_SIZE,
-                            205,
-                            javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(roletaSkin4,
-                            javax.swing.GroupLayout.PREFERRED_SIZE,
-                            205,
-                            javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(roletaSkin5,
-                            javax.swing.GroupLayout.PREFERRED_SIZE,
-                            205,
-                            javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(roletaSkin6,
-                            javax.swing.GroupLayout.PREFERRED_SIZE,
-                            205,
-                            javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(roletaSkin7,
-                            javax.swing.GroupLayout.PREFERRED_SIZE,
-                            205,
-                            javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(roletaSkin1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(roletaSkin2, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(roletaSkin3, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(roletaSkin4, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(roletaSkin5, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(roletaSkin6, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(roletaSkin7, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
-                .addComponent(statusLabel,
-                        javax.swing.GroupLayout.PREFERRED_SIZE,
-                        24,
-                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(statusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
-                .addGroup(jPanelPrincipalLayout.createParallelGroup(
-                        javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(imagemPremioLabel,
-                            javax.swing.GroupLayout.PREFERRED_SIZE,
-                            145,
-                            javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelPrincipalLayout.createSequentialGroup()
-                        .addComponent(resultadoLabel,
-                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                55,
-                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(resultadoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(8, 8, 8)
-                        .addComponent(detalheResultadoLabel,
-                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                55,
-                                javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(abrirButton,
-                            javax.swing.GroupLayout.PREFERRED_SIZE,
-                            48,
-                            javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fecharButton,
-                            javax.swing.GroupLayout.PREFERRED_SIZE,
-                            48,
-                            javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                        .addComponent(detalheResultadoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(imagemPremioLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(abrirButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(fecharButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(22, 22, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout =
-                new javax.swing.GroupLayout(getContentPane());
-
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-
         layout.setHorizontalGroup(
-            layout.createParallelGroup(
-                    javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelPrincipal,
-                    javax.swing.GroupLayout.DEFAULT_SIZE,
-                    javax.swing.GroupLayout.DEFAULT_SIZE,
-                    Short.MAX_VALUE)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-
         layout.setVerticalGroup(
-            layout.createParallelGroup(
-                    javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelPrincipal,
-                    javax.swing.GroupLayout.DEFAULT_SIZE,
-                    javax.swing.GroupLayout.DEFAULT_SIZE,
-                    Short.MAX_VALUE)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
-    }//GEN-END:initComponents
+    }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton abrirButton;
@@ -815,8 +719,8 @@ public class TelaCaixasVisual extends javax.swing.JFrame {
     private javax.swing.JLabel roletaSkin5;
     private javax.swing.JLabel roletaSkin6;
     private javax.swing.JLabel roletaSkin7;
+    private javax.swing.JComboBox seletorCaixaComboBox;
     private javax.swing.JLabel statusLabel;
-    private javax.swing.JComboBox<Caixa> seletorCaixaComboBox;
     private javax.swing.JLabel subtituloLabel;
     private javax.swing.JLabel tituloLabel;
     // End of variables declaration//GEN-END:variables

@@ -2,6 +2,8 @@ package TrabalhoPMD.servico;
 
 import TrabalhoPMD.dados.BancoDados;
 import TrabalhoPMD.dados.EntidadeDAO;
+import TrabalhoPMD.dados.PersistenceException;
+
 import TrabalhoPMD.modelo.Caixa;
 import TrabalhoPMD.modelo.Colecao;
 import TrabalhoPMD.modelo.Entidade;
@@ -9,6 +11,7 @@ import TrabalhoPMD.modelo.Skin;
 import TrabalhoPMD.modelo.Usuario;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -87,6 +90,7 @@ public class ServicoCaixa {
             double[] chances) {
 
         if (raridades.length != chances.length) {
+
             throw new IllegalArgumentException(
                     "A quantidade de raridades e chances deve ser igual.");
         }
@@ -100,7 +104,7 @@ public class ServicoCaixa {
         return probabilidades;
     }
 
-    // Retorna as skins que podem aparecer em determinada caixa.
+    // Retorna as skins disponíveis para determinada caixa.
     public List<Skin> listarSkins(Caixa caixa) {
 
         if (caixa == null) {
@@ -109,11 +113,10 @@ public class ServicoCaixa {
 
         List<Skin> skinsDisponiveis = new ArrayList<>();
 
-        EntidadeDAO daoSkin = banco.getDAO(Skin.class);
+        EntidadeDAO<Skin> daoSkin =
+                banco.getDAO(Skin.class);
 
-        for (Entidade entidade : daoSkin.carregar()) {
-
-            Skin skin = (Skin) entidade;
+        for (Skin skin : carregarOuVazio(daoSkin)) {
 
             if (skin.getJogo() == null
                     || !skin.getJogo().equalsIgnoreCase(caixa.getJogo())) {
@@ -138,15 +141,21 @@ public class ServicoCaixa {
             throw new IllegalArgumentException("Caixa não informada.");
         }
 
-        Map<String, List<Skin>> skinsPorRaridade = new LinkedHashMap<>();
+        Map<String, List<Skin>> skinsPorRaridade =
+                new LinkedHashMap<>();
 
         for (String raridade : caixa.getProbabilidades().keySet()) {
-            skinsPorRaridade.put(raridade, new ArrayList<Skin>());
+
+            skinsPorRaridade.put(
+                    raridade,
+                    new ArrayList<Skin>()
+            );
         }
 
         for (Skin skin : listarSkins(caixa)) {
 
-            List<Skin> grupo = skinsPorRaridade.get(skin.getRaridade());
+            List<Skin> grupo =
+                    skinsPorRaridade.get(skin.getRaridade());
 
             if (grupo != null) {
                 grupo.add(skin);
@@ -159,7 +168,9 @@ public class ServicoCaixa {
                 : skinsPorRaridade.entrySet()) {
 
             if (!entrada.getValue().isEmpty()) {
-                pesoTotal += caixa.getProbabilidades().get(entrada.getKey());
+
+                pesoTotal += caixa.getProbabilidades()
+                        .get(entrada.getKey());
             }
         }
 
@@ -182,10 +193,14 @@ public class ServicoCaixa {
                 continue;
             }
 
-            acumulado += caixa.getProbabilidades().get(entrada.getKey());
+            acumulado += caixa.getProbabilidades()
+                    .get(entrada.getKey());
 
             if (sorteio < acumulado) {
-                return grupo.get(aleatorio.nextInt(grupo.size()));
+
+                return grupo.get(
+                        aleatorio.nextInt(grupo.size())
+                );
             }
         }
 
@@ -193,76 +208,88 @@ public class ServicoCaixa {
         for (List<Skin> grupo : skinsPorRaridade.values()) {
 
             if (!grupo.isEmpty()) {
-                return grupo.get(aleatorio.nextInt(grupo.size()));
+
+                return grupo.get(
+                        aleatorio.nextInt(grupo.size())
+                );
             }
         }
 
-        throw new IllegalStateException("Não foi possível sortear uma skin.");
+        throw new IllegalStateException(
+                "Não foi possível sortear uma skin.");
     }
 
-    // Adiciona a recompensa à coleção e persiste os dois objetos.
+    // Adiciona a recompensa à coleção e persiste os objetos.
     public void registrarRecompensa(Usuario usuario, Skin skin) {
 
         if (usuario == null || skin == null) {
+
             throw new IllegalArgumentException(
                     "Usuário e skin devem ser informados.");
         }
 
-        EntidadeDAO daoColecao = banco.getDAO(Colecao.class);
-        EntidadeDAO daoUsuario = banco.getDAO(Usuario.class);
+        EntidadeDAO<Colecao> daoColecao =
+                banco.getDAO(Colecao.class);
 
-        Colecao colecao = obterOuCriarColecao(
-                usuario,
-                daoColecao
-        );
+        EntidadeDAO<Usuario> daoUsuario =
+                banco.getDAO(Usuario.class);
 
-        colecao.adicionarItem(skin, 1);
+        try {
 
-        Entidade existente = daoColecao.buscar(colecao.getId());
+            Colecao colecao = obterOuCriarColecao(
+                    usuario,
+                    daoColecao
+            );
 
-        if (existente == null) {
+            colecao.adicionarItem(skin, 1);
 
-            if (!daoColecao.salvar(colecao)) {
-                throw new IllegalStateException(
-                        "Não foi possível salvar a coleção.");
+            // Verifica se a coleção já existe.
+            Colecao existente = buscarOuNull(
+                    daoColecao,
+                    colecao.getId()
+            );
+
+            if (existente == null) {
+
+                daoColecao.salvar(colecao);
+
+            } else {
+
+                daoColecao.atualizar(colecao);
             }
 
-        } else {
+            usuario.setColecao(colecao);
 
-            if (!daoColecao.atualizar(colecao)) {
-                throw new IllegalStateException(
-                        "Não foi possível atualizar a coleção.");
+            // Atualiza o usuário caso esteja cadastrado.
+            Usuario usuarioExistente = buscarOuNull(
+                    daoUsuario,
+                    usuario.getId()
+            );
+
+            if (usuarioExistente != null) {
+                daoUsuario.atualizar(usuario);
             }
-        }
 
-        usuario.setColecao(colecao);
+            // Persiste as alterações nos arquivos.
+            daoColecao.persistir();
+            daoUsuario.persistir();
 
-        if (daoUsuario.buscar(usuario.getId()) != null) {
-            if (!daoUsuario.atualizar(usuario)) {
-                throw new IllegalStateException(
-                        "Não foi possível atualizar o usuário.");
-            }
-        }
+        } catch (PersistenceException e) {
 
-        if (!daoColecao.persistir()) {
             throw new IllegalStateException(
-                    "Não foi possível persistir a coleção.");
-        }
-
-        if (!daoUsuario.persistir()) {
-            throw new IllegalStateException(
-                    "Não foi possível persistir o usuário.");
+                    "Erro ao registrar a recompensa: "
+                    + e.getMessage(),
+                    e
+            );
         }
     }
 
     // Procura uma coleção existente pelo dono antes de criar outra.
     private Colecao obterOuCriarColecao(
             Usuario usuario,
-            EntidadeDAO daoColecao) {
+            EntidadeDAO<Colecao> daoColecao) {
 
-        for (Entidade entidade : daoColecao.carregar()) {
-
-            Colecao colecao = (Colecao) entidade;
+        for (Colecao colecao : carregarOuVazio(daoColecao)) {
 
             if (colecao.getUsuario() != null
                     && colecao.getUsuario().getId() == usuario.getId()) {
@@ -278,16 +305,17 @@ public class ServicoCaixa {
 
         if (colecao != null) {
 
-            Entidade existente = daoColecao.buscar(colecao.getId());
+            Colecao existente = buscarOuNull(
+                    daoColecao,
+                    colecao.getId()
+            );
 
-            if (existente instanceof Colecao) {
+            if (existente != null) {
 
-                Colecao armazenada = (Colecao) existente;
+                if (existente.getUsuario() == null
+                        || existente.getUsuario().getId() == usuario.getId()) {
 
-                if (armazenada.getUsuario() == null
-                        || armazenada.getUsuario().getId() == usuario.getId()) {
-
-                    colecao = armazenada;
+                    colecao = existente;
                 }
             }
         }
@@ -307,17 +335,62 @@ public class ServicoCaixa {
         return colecao;
     }
 
-    private int proximoIdColecao(EntidadeDAO daoColecao) {
+    // Gera o próximo ID disponível para uma coleção.
+    private int proximoIdColecao(
+            EntidadeDAO<Colecao> daoColecao) {
 
         int maiorId = 0;
 
-        for (Entidade entidade : daoColecao.carregar()) {
+        for (Colecao colecao : carregarOuVazio(daoColecao)) {
 
-            if (entidade.getId() > maiorId) {
-                maiorId = entidade.getId();
+            if (colecao.getId() > maiorId) {
+                maiorId = colecao.getId();
             }
         }
 
         return maiorId + 1;
+    }
+
+    // Busca uma entidade e retorna null quando ela não existe.
+    private <E extends Entidade> E buscarOuNull(
+            EntidadeDAO<E> dao,
+            int id) {
+
+        try {
+
+            return dao.buscar(id);
+
+        } catch (PersistenceException e) {
+
+            if ("BUSCAR".equals(e.getOperacao())) {
+                return null;
+            }
+
+            throw new IllegalStateException(
+                    "Erro ao buscar entidade: " + e.getMessage(),
+                    e
+            );
+        }
+    }
+
+    // Carrega as entidades ou retorna uma lista vazia.
+    private <E extends Entidade> List<E> carregarOuVazio(
+            EntidadeDAO<E> dao) {
+
+        try {
+
+            return Arrays.asList(dao.carregar());
+
+        } catch (PersistenceException e) {
+
+            if ("CARREGAR TODOS".equals(e.getOperacao())) {
+                return new ArrayList<>();
+            }
+
+            throw new IllegalStateException(
+                    "Erro ao carregar entidades: " + e.getMessage(),
+                    e
+            );
+        }
     }
 }

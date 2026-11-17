@@ -122,19 +122,12 @@ public class AtualizadorSkinsValorant {
 
             }
 
-            if (daoSkin.persistir()) {
+            daoSkin.persistir();
 
-    System.out.println(
-            "Imagens salvas com sucesso no banco de dados!"
-    );
+            System.out.println(
+                    "Imagens salvas com sucesso no banco de dados!"
+            );
 
-} else {
-
-    System.out.println(
-            "Erro ao salvar as imagens."
-    );
-}
-            
             System.out.println("\n===== RELATORIO =====");
 
             System.out.println(
@@ -163,32 +156,31 @@ public class AtualizadorSkinsValorant {
         }
     }
 
-    
-private JsonObject buscarPorNome(
-        JsonArray lista,
-        String nomeNormalizado) {
+    private JsonObject buscarPorNome(
+            JsonArray lista,
+            String nomeNormalizado) {
 
-    for (int i = 0; i < lista.size(); i++) {
+        for (int i = 0; i < lista.size(); i++) {
 
-        JsonObject skinAPI =
-                lista.get(i).getAsJsonObject();
+            JsonObject skinAPI
+                    = lista.get(i).getAsJsonObject();
 
-        if (!skinAPI.has("displayName")
-                || skinAPI.get("displayName").isJsonNull()) {
-            continue;
+            if (!skinAPI.has("displayName")
+                    || skinAPI.get("displayName").isJsonNull()) {
+                continue;
+            }
+
+            String nomeAPI = normalizar(
+                    skinAPI.get("displayName").getAsString()
+            );
+
+            if (nomeNormalizado.equals(nomeAPI)) {
+                return skinAPI;
+            }
         }
 
-        String nomeAPI = normalizar(
-                skinAPI.get("displayName").getAsString()
-        );
-
-        if (nomeNormalizado.equals(nomeAPI)) {
-            return skinAPI;
-        }
+        return null;
     }
-
-    return null;
-}
 
     private String normalizar(String texto) {
 

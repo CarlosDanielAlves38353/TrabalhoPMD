@@ -1,28 +1,29 @@
-
 package TrabalhoPMD.modelo;
 
 public class Skin extends Entidade {
 
 
     /*Alterar DPS */
-    private static final long serialVersionUID = -4731270119128210323L; /*- preserva a compatibilidade com os dados serializados pela versão anterior dessa classe. */
+//    private static final long serialVersionUID = -4731270119128210323L;
+    /*- preserva a compatibilidade com os dados serializados pela versão anterior dessa classe. */
 
     private String nome;
     private String jogo;
     private String raridade;
     private Usuario cadastradaPor;
     private String imagemUrl;
+//    private String uuid;
 
     // Construtor original
     public Skin(int id, String nome, String jogo, String raridade,
-                Usuario cadastradaPor) {
+            Usuario cadastradaPor) {
 
         this(id, nome, jogo, raridade, cadastradaPor, null);
     }
 
     // Novo construtor com imagem
     public Skin(int id, String nome, String jogo, String raridade,
-                Usuario cadastradaPor, String imagemUrl) {
+            Usuario cadastradaPor, String imagemUrl) {
 
         super(id);
 
@@ -34,7 +35,6 @@ public class Skin extends Entidade {
     }
 
     // Getters e setters
-
     public String getNome() {
         return nome;
     }
@@ -75,20 +75,27 @@ public class Skin extends Entidade {
         this.imagemUrl = imagemUrl;
     }
 
+//    public String getUuid() {;
+//        return uuid;
+//    }
+//
+//    public void setUuid(String uuid) {
+//        this.uuid = uuid;
+//    }
+
     @Override
     public String toString() {
 
         return String.format(
-                "┌──────────────────────────────────────┐%n" +
-                "│               SKIN                   │%n" +
-                "├──────────────────────────────────────┤%n" +
-                "│ ID: %-33d│%n" +
-                "│ Nome: %-29s  │%n" +
-                "│ Jogo: %-29s  │%n" +
-                "│ Raridade: %-25s  │%n" +
-                "│ Cadastrada por: %-18s    │%n" +
-                "└──────────────────────────────────────┘",
-
+                "┌──────────────────────────────────────┐%n"
+                + "│               SKIN                   │%n"
+                + "├──────────────────────────────────────┤%n"
+                + "│ ID: %-33d│%n"
+                + "│ Nome: %-29s  │%n"
+                + "│ Jogo: %-29s  │%n"
+                + "│ Raridade: %-25s  │%n"
+                + "│ Cadastrada por: %-18s    │%n"
+                + "└──────────────────────────────────────┘",
                 getId(),
                 nome,
                 jogo,

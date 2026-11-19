@@ -1,0 +1,24 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Executar TrabalhoPMD",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "-lc",
+                "set -e; GSON_JAR=\"$(find lib -maxdepth 1 -type f -iname 'gson*.jar' -print -quit)\"; if [ -z \"$GSON_JAR\" ]; then echo 'ERRO: Biblioteca Gson não encontrada na pasta lib!'; exit 1; fi; echo \"Utilizando Gson: $GSON_JAR\"; mkdir -p bin; mapfile -d '' SOURCES < <(find src -type f -name '*.java' -print0); javac -encoding UTF-8 -cp \"$GSON_JAR\" -d bin \"${SOURCES[@]}\"; java -cp \"bin:$GSON_JAR\" TrabalhoPMD.Programa"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$javac"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}

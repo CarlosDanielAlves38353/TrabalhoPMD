@@ -30,6 +30,8 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
+
+
 /**
  * Janela de abertura de caixas.
  *

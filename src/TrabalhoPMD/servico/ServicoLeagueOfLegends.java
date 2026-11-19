@@ -1,5 +1,7 @@
 package TrabalhoPMD.servico;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -10,20 +12,33 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+
 import java.time.Duration;
 
-import java.text.Normalizer;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Locale;
+import java.util.HashMap;
+import java.util.HashSet;
+
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
 public class ServicoLeagueOfLegends {
 
-    private static final String URL_BASE =
-            "https://ddragon.leagueoflegends.com";
+    private static final String URL_BASE
+            = "https://ddragon.leagueoflegends.com";
+    private static final String URL_CDRAGON
+            = "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champions/";
+
+    private static final Path ARQUIVO_SKINS
+            = Path.of("dados", "skins_lol.json");
+
+    private static final Gson GSON
+            = new GsonBuilder().setPrettyPrinting().create();
 
     private final HttpClient cliente;
 
@@ -34,8 +49,79 @@ public class ServicoLeagueOfLegends {
                 .build();
     }
 
-    // Busca as skins dos campeões relacionados aos nomes cadastrados
-    public JsonArray buscarSkins(List<String> nomesCadastrados)
+    private Map<String, String> buscarRaridadesCampeao(
+            String campeaoKey)
+            throws IOException, InterruptedException {
+
+        String url = URL_CDRAGON + campeaoKey + ".json";
+
+        HttpResponse<String> resposta = requisitar(url);
+
+        JsonObject json = JsonParser
+                .parseString(resposta.body())
+                .getAsJsonObject();
+
+        JsonArray skins = json.getAsJsonArray("skins");
+
+        Map<String, String> raridades = new HashMap<>();
+
+        for (int i = 0; i < skins.size(); i++) {
+
+            JsonObject skin = skins.get(i).getAsJsonObject();
+
+            String apiId = obterTexto(skin, "id");
+            String raridade = obterTexto(skin, "rarity");
+
+            if (!apiId.isEmpty()) {
+
+                raridades.put(
+                        apiId,
+                        converterRaridade(raridade)
+                );
+            }
+        }
+
+        return raridades;
+    }
+
+    private String converterRaridade(String raridade) {
+
+        if (raridade == null) {
+            return "Sem categoria";
+        }
+
+        switch (raridade) {
+
+            case "kEpic":
+                return "Epic";
+
+            case "kLegendary":
+                return "Legendary";
+
+            case "kUltimate":
+                return "Ultimate";
+
+            case "kMythic":
+                return "Mythic";
+
+            case "kExalted":
+                return "Exalted";
+
+            case "kTranscendent":
+                return "Transcendent";
+
+            case "kRare":
+                return "Rare";
+
+            default:
+                return "Sem categoria";
+        }
+    }
+
+    // =====================================================
+    // BUSCAR TODAS AS SKINS DE TODOS OS CAMPEÕES
+    // =====================================================
+    public JsonArray buscarSkins()
             throws IOException, InterruptedException {
 
         System.out.println("Consultando Data Dragon...");
@@ -44,74 +130,112 @@ public class ServicoLeagueOfLegends {
 
         System.out.println("Versão: " + versao);
 
-        // Busca a lista de campeões nos dois idiomas
-        JsonObject campeoesPt = buscarListaCampeoes(
+        // Busca a lista completa de campeões
+        JsonObject listaCampeoes = buscarListaCampeoes(
                 versao,
                 "pt_BR"
         );
 
-        JsonObject campeoesEn = buscarListaCampeoes(
-                versao,
-                "en_US"
-        );
+        if (listaCampeoes.size() == 0) {
 
-        // Descobre quais campeões aparecem nas skins do banco
-        Set<String> campeoes = new LinkedHashSet<>();
-
-        localizarCampeoes(
-                campeoes,
-                campeoesPt,
-                nomesCadastrados
-        );
-
-        localizarCampeoes(
-                campeoes,
-                campeoesEn,
-                nomesCadastrados
-        );
-
-        System.out.println(
-                "Campeões identificados: " + campeoes.size()
-        );
-
-        if (campeoes.isEmpty()) {
             throw new IOException(
-                    "Não foi possível identificar os campeões cadastrados."
+                    "Nenhum campeão encontrado no Data Dragon."
             );
         }
 
-        JsonArray resultado = new JsonArray();
+        System.out.println(
+                "Total de campeões: " + listaCampeoes.size()
+        );
 
-        // Consulta os dados de cada campeão nos dois idiomas
-        for (String campeaoId : campeoes) {
+        // Guarda as skins pelo ID original da API
+        Map<String, JsonObject> skinsPorApiId
+                = new LinkedHashMap<>();
+
+        int contador = 0;
+
+        // Percorre todos os campeões
+        for (Map.Entry<String, JsonElement> entrada
+                : listaCampeoes.entrySet()) {
+
+            JsonObject resumo = entrada.getValue()
+                    .getAsJsonObject();
+
+            String campeaoId = resumo
+                    .get("id")
+                    .getAsString();
+
+            String campeaoKey = resumo
+                    .get("key")
+                    .getAsString();
+
+            Map<String, String> raridades
+                    = buscarRaridadesCampeao(campeaoKey);
+
+            contador++;
 
             System.out.println(
-                    "Consultando campeão: " + campeaoId
+                    "[" + contador + "/" + listaCampeoes.size()
+                    + "] Consultando: " + campeaoId
             );
 
-            buscarSkinsCampeao(
-                    resultado,
+            // Busca os dados completos nos dois idiomas
+            JsonObject campeaoPt = buscarDadosCampeao(
                     versao,
                     campeaoId,
                     "pt_BR"
             );
 
-            buscarSkinsCampeao(
-                    resultado,
+            JsonObject campeaoEn = buscarDadosCampeao(
                     versao,
                     campeaoId,
                     "en_US"
             );
+
+            // Adiciona as skins em português
+            adicionarSkinsIdioma(
+                    skinsPorApiId,
+                    campeaoPt,
+                    campeaoId,
+                    "pt_BR",
+                    raridades
+            );
+
+            // Adiciona os nomes em inglês
+            adicionarSkinsIdioma(
+                    skinsPorApiId,
+                    campeaoEn,
+                    campeaoId,
+                    "en_US",
+                    raridades
+            );
+        }
+
+        // Converte o resultado para JsonArray
+        JsonArray resultado = new JsonArray();
+
+        for (JsonObject skin : skinsPorApiId.values()) {
+            resultado.add(skin);
         }
 
         System.out.println(
-                "Total de skins recebidas: " + resultado.size()
+                "Total de skins encontradas: " + resultado.size()
         );
 
-        return resultado;
+        // Salva as informações no arquivo local
+        return salvarSkinsDaApi(resultado);
     }
 
-    // Busca a versão mais recente do Data Dragon
+    // Mantém compatibilidade com chamadas antigas.
+    // A lista recebida não limita mais a consulta.
+    public JsonArray buscarSkins(java.util.List<String> nomesCadastrados)
+            throws IOException, InterruptedException {
+
+        return buscarSkins();
+    }
+
+    // =====================================================
+    // BUSCAR VERSÃO DO DATA DRAGON
+    // =====================================================
     private String buscarVersao()
             throws IOException, InterruptedException {
 
@@ -124,6 +248,7 @@ public class ServicoLeagueOfLegends {
                 .getAsJsonArray();
 
         if (versoes.isEmpty()) {
+
             throw new IOException(
                     "Não foi possível encontrar a versão do Data Dragon."
             );
@@ -132,7 +257,9 @@ public class ServicoLeagueOfLegends {
         return versoes.get(0).getAsString();
     }
 
-    // Busca a lista resumida de campeões
+    // =====================================================
+    // BUSCAR LISTA DE CAMPEÕES
+    // =====================================================
     private JsonObject buscarListaCampeoes(
             String versao,
             String idioma)
@@ -152,46 +279,9 @@ public class ServicoLeagueOfLegends {
         return json.getAsJsonObject("data");
     }
 
-    // Identifica os campeões presentes nos nomes das skins
-    private void localizarCampeoes(
-            Set<String> campeoes,
-            JsonObject listaCampeoes,
-            List<String> nomesCadastrados) {
-
-        for (Map.Entry<String, JsonElement> entrada
-                : listaCampeoes.entrySet()) {
-
-            JsonObject campeao = entrada.getValue()
-                    .getAsJsonObject();
-
-            String nomeCampeao = campeao
-                    .get("name")
-                    .getAsString();
-
-            String idCampeao = campeao
-                    .get("id")
-                    .getAsString();
-
-            String nomeNormalizado = normalizarTexto(nomeCampeao);
-
-            for (String nomeSkin : nomesCadastrados) {
-
-                String skinNormalizada = normalizarTexto(nomeSkin);
-
-                String buscaSkin = " " + skinNormalizada + " ";
-                String buscaCampeao = " " + nomeNormalizado + " ";
-
-                if (buscaSkin.contains(buscaCampeao)) {
-
-                    campeoes.add(idCampeao);
-
-                    break;
-                }
-            }
-        }
-    }
-
-    // Busca os dados completos de um campeão
+    // =====================================================
+    // BUSCAR DADOS COMPLETOS DE UM CAMPEÃO
+    // =====================================================
     private JsonObject buscarDadosCampeao(
             String versao,
             String campeaoId,
@@ -214,66 +304,127 @@ public class ServicoLeagueOfLegends {
         return dados.getAsJsonObject(campeaoId);
     }
 
-    // Adiciona as skins de um campeão ao resultado
-    private void buscarSkinsCampeao(
-            JsonArray resultado,
-            String versao,
-            String campeaoId,
-            String idioma)
-            throws IOException, InterruptedException {
+    // =====================================================
+    // ADICIONAR SKINS DE UM CAMPEÃO
+  
+        
+private void adicionarSkinsIdioma(
+        Map<String, JsonObject> resultado,
+        JsonObject campeao,
+        String campeaoId,
+        String idioma,
+        Map<String, String> raridades) {
 
-        JsonObject campeao = buscarDadosCampeao(
-                versao,
-                campeaoId,
-                idioma
-        );
+    JsonArray skins = campeao.getAsJsonArray("skins");
 
-        JsonArray skins = campeao.getAsJsonArray("skins");
+    String nomeCampeao = campeao
+            .get("name")
+            .getAsString();
 
-        for (int i = 0; i < skins.size(); i++) {
+    for (int i = 0; i < skins.size(); i++) {
 
-            JsonObject skin = skins.get(i).getAsJsonObject();
+        JsonObject skin = skins.get(i).getAsJsonObject();
 
-            if (!skin.has("name")
-                    || !skin.has("num")) {
-                continue;
-            }
+        if (!skin.has("id")
+                || !skin.has("name")
+                || !skin.has("num")) {
 
-            // Ignora skins cromáticas
-            if (skin.has("parentSkin")
-                    && !skin.get("parentSkin").isJsonNull()) {
-                continue;
-            }
+            continue;
+        }
 
-            String nome = skin.get("name").getAsString();
+        // Ignora cromas
+        if (skin.has("parentSkin")
+                && !skin.get("parentSkin").isJsonNull()) {
 
-            // Ignora a skin padrão do campeão
-            if (nome.equalsIgnoreCase("default")) {
-                continue;
-            }
+            continue;
+        }
 
-            int numero = skin.get("num").getAsInt();
+        String nome = skin.get("name").getAsString();
 
-            String imagem = construirUrlImagem(
-                    campeaoId,
-                    numero
+        int numero = skin.get("num").getAsInt();
+
+        // Ignora a skin padrão
+        if (numero == 0
+                || nome.equalsIgnoreCase("default")) {
+
+            continue;
+        }
+
+        String apiId = skin.get("id").getAsString();
+
+        // Verifica se a skin já foi adicionada
+        JsonObject resultadoSkin = resultado.get(apiId);
+
+        // PRIMEIRO: cria o objeto caso ainda não exista
+        if (resultadoSkin == null) {
+
+            resultadoSkin = new JsonObject();
+
+            resultadoSkin.addProperty("apiId", apiId);
+
+            resultadoSkin.addProperty(
+                    "championId",
+                    campeaoId
             );
 
-            JsonObject resultadoSkin = new JsonObject();
+            resultadoSkin.addProperty("num", numero);
 
-            resultadoSkin.addProperty("displayName", nome);
-            resultadoSkin.addProperty("displayIcon", imagem);
+            resultadoSkin.addProperty(
+                    "displayIcon",
+                    construirUrlImagem(campeaoId, numero)
+            );
 
-            resultado.add(resultadoSkin);
+            resultado.put(apiId, resultadoSkin);
+        }
+
+        // DEPOIS: adiciona a raridade
+        String raridade = raridades.get(apiId);
+
+        if (raridade != null && !raridade.isBlank()) {
+
+            resultadoSkin.addProperty(
+                    "raridade",
+                    raridade
+            );
+        }
+
+        // Adiciona os nomes nos respectivos idiomas
+        if (idioma.equals("pt_BR")) {
+
+            resultadoSkin.addProperty(
+                    "displayName",
+                    nome
+            );
+
+            resultadoSkin.addProperty(
+                    "championName",
+                    nomeCampeao
+            );
+
+        } else {
+
+            resultadoSkin.addProperty(
+                    "displayNameEn",
+                    nome
+            );
+
+            resultadoSkin.addProperty(
+                    "championNameEn",
+                    nomeCampeao
+            );
         }
     }
+}
 
-    // Monta a URL da splash art
+    
+
+    // =====================================================
+    // CONSTRUIR URL DA IMAGEM
+    // =====================================================
     private String construirUrlImagem(
             String campeaoId,
             int numero) {
 
-        // Exceção no nome do arquivo de Fiddlesticks
         if (campeaoId.equalsIgnoreCase("Fiddlesticks")) {
             campeaoId = "FiddleSticks";
         }
@@ -283,7 +434,199 @@ public class ServicoLeagueOfLegends {
                 + campeaoId + "_" + numero + ".jpg";
     }
 
-    // Realiza uma requisição HTTP
+    // =====================================================
+    // SALVAR SKINS DA API
+    // =====================================================
+    private JsonArray salvarSkinsDaApi(JsonArray skinsApi)
+            throws IOException {
+
+        JsonArray existentes = carregarSkinsSalvas();
+
+        Map<String, Integer> idsExistentes = new HashMap<>();
+
+        JsonArray registrosManuais = new JsonArray();
+
+        int maiorId = 0;
+
+        // Analisa o arquivo existente
+        for (int i = 0; i < existentes.size(); i++) {
+
+            JsonObject skin = existentes.get(i).getAsJsonObject();
+
+            int id = obterId(skin);
+
+            if (id > maiorId) {
+                maiorId = id;
+            }
+
+            // Possui apiId: veio da API
+            if (skin.has("apiId")
+                    && !skin.get("apiId").isJsonNull()
+                    && !obterTexto(skin, "apiId").isEmpty()) {
+
+                String apiId = obterTexto(skin, "apiId");
+
+                if (id > 0) {
+                    idsExistentes.put(apiId, id);
+                }
+
+            } else {
+
+                // Não possui apiId: cadastro manual
+                registrosManuais.add(skin.deepCopy());
+            }
+        }
+
+        int proximoId = maiorId + 1;
+
+        JsonArray arquivoAtualizado = new JsonArray();
+
+        // Preserva os registros manuais
+        for (int i = 0; i < registrosManuais.size(); i++) {
+
+            JsonObject skin
+                    = registrosManuais.get(i).getAsJsonObject();
+
+            if (obterId(skin) <= 0) {
+                skin.addProperty("id", proximoId++);
+            }
+
+            arquivoAtualizado.add(skin);
+        }
+
+        JsonArray skinsAtualizadas = new JsonArray();
+
+        Set<String> idsProcessados = new HashSet<>();
+
+        // Processa todas as skins recebidas
+        for (int i = 0; i < skinsApi.size(); i++) {
+
+            JsonObject skinApi = skinsApi.get(i).getAsJsonObject();
+
+            String apiId = obterTexto(skinApi, "apiId");
+
+            if (apiId.isEmpty()) {
+                continue;
+            }
+
+            // Evita duplicações
+            if (!idsProcessados.add(apiId)) {
+                continue;
+            }
+
+            JsonObject skinSalva = skinApi.deepCopy();
+
+            Integer idExistente = idsExistentes.get(apiId);
+
+            if (idExistente != null) {
+
+                // Mantém o ID local anterior
+                skinSalva.addProperty("id", idExistente);
+
+            } else {
+
+                // Cria um ID novo
+                skinSalva.addProperty("id", proximoId++);
+            }
+
+            arquivoAtualizado.add(skinSalva);
+            skinsAtualizadas.add(skinSalva.deepCopy());
+        }
+
+        // Grava o arquivo atualizado
+        gravarSkins(arquivoAtualizado);
+
+        return skinsAtualizadas;
+    }
+
+    // =====================================================
+    // CARREGAR ARQUIVO LOCAL
+    // =====================================================
+    private JsonArray carregarSkinsSalvas()
+            throws IOException {
+
+        if (!Files.exists(ARQUIVO_SKINS)) {
+            return new JsonArray();
+        }
+
+        String conteudo = Files.readString(
+                ARQUIVO_SKINS,
+                StandardCharsets.UTF_8
+        );
+
+        if (conteudo.isBlank()) {
+            return new JsonArray();
+        }
+
+        try {
+
+            return JsonParser
+                    .parseString(conteudo)
+                    .getAsJsonArray();
+
+        } catch (RuntimeException e) {
+
+            throw new IOException(
+                    "Erro ao ler arquivo de skins do LoL.",
+                    e
+            );
+        }
+    }
+
+    // =====================================================
+    // GRAVAR ARQUIVO LOCAL
+    // =====================================================
+    private void gravarSkins(JsonArray skins)
+            throws IOException {
+
+        Files.createDirectories(
+                ARQUIVO_SKINS.getParent()
+        );
+
+        Files.writeString(
+                ARQUIVO_SKINS,
+                GSON.toJson(skins),
+                StandardCharsets.UTF_8,
+                StandardOpenOption.CREATE,
+                StandardOpenOption.TRUNCATE_EXISTING,
+                StandardOpenOption.WRITE
+        );
+    }
+
+    // =====================================================
+    // MÉTODOS AUXILIARES
+    // =====================================================
+    private int obterId(JsonObject objeto) {
+
+        try {
+
+            if (objeto.has("id")
+                    && !objeto.get("id").isJsonNull()) {
+
+                return objeto.get("id").getAsInt();
+            }
+
+        } catch (RuntimeException e) {
+            return 0;
+        }
+
+        return 0;
+    }
+
+    private String obterTexto(JsonObject objeto, String campo) {
+
+        if (objeto.has(campo)
+                && !objeto.get(campo).isJsonNull()) {
+
+            return objeto.get(campo).getAsString();
+        }
+
+        return "";
+    }
+
+    // =====================================================
+    // REQUISIÇÃO HTTP
+    // =====================================================
     private HttpResponse<String> requisitar(String url)
             throws IOException, InterruptedException {
 
@@ -308,22 +651,5 @@ public class ServicoLeagueOfLegends {
         }
 
         return resposta;
-    }
-
-    // Normaliza nomes para identificar os campeões
-    private String normalizarTexto(String texto) {
-
-        if (texto == null) {
-            return "";
-        }
-
-        return Normalizer.normalize(
-                texto,
-                Normalizer.Form.NFD
-        )
-                .replaceAll("\\p{M}+", "")
-                .toLowerCase(Locale.ROOT)
-                .replaceAll("[^a-z0-9]+", " ")
-                .trim();
     }
 }

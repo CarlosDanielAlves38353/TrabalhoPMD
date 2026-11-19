@@ -1,43 +1,38 @@
-
 package TrabalhoPMD.servico;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import java.io.IOException;
 
 public class TesteServicoCS2 {
 
     public static void main(String[] args) {
 
+        ServicoCS2 servico = new ServicoCS2();
+
         try {
 
-            ServicoCS2 servico = new ServicoCS2();
-
-            System.out.println("Consultando API do CS2...");
+            System.out.println("Buscando skins do CS2...");
 
             JsonArray skins = servico.buscarSkins();
 
+            System.out.println("Consulta realizada!");
+
+            System.out.println("Total de skins: " + skins.size());
+
             System.out.println(
-                    "Total de skins retornadas: " + skins.size()
+                    "Arquivo salvo: dados/skins_cs2.json"
             );
 
-            System.out.println("\n===== PRIMEIRAS SKINS =====");
+        } catch (IOException e) {
 
-            for (int i = 0; i < Math.min(10, skins.size()); i++) {
-
-                JsonObject skin = skins.get(i).getAsJsonObject();
-
-                String nome = skin.get("name").getAsString();
-
-                String imagem = skin.get("image").getAsString();
-
-                System.out.println("\nNome: " + nome);
-                System.out.println("Imagem: " + imagem);
-            }
-
-        } catch (Exception e) {
-
-            System.out.println("Erro ao consultar API do CS2.");
+            System.err.println("Erro ao acessar ou salvar:");
             e.printStackTrace();
+
+        } catch (InterruptedException e) {
+
+            Thread.currentThread().interrupt();
+
+            System.err.println("Consulta interrompida.");
         }
     }
 }

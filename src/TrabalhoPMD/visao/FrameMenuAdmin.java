@@ -121,7 +121,7 @@ public class FrameMenuAdmin extends javax.swing.JFrame {
 
         TituloAdm.setText("jLabel1");
 
-        Butexplo.setText("jButton1");
+        Butexplo.setText("Explorar Skin");
         Butexplo.addActionListener(this::ButexploActionPerformed);
 
         Butavali.setText("jButton1");
@@ -211,6 +211,12 @@ public class FrameMenuAdmin extends javax.swing.JFrame {
 
     private void ButexploActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButexploActionPerformed
         // TODO add your handling code here:
+        
+        TelaCaixasVisual caixa = new TelaCaixasVisual(usuarioLogado);
+        caixa.setLocationRelativeTo(null);
+        caixa.setVisible(true);
+        
+        this.dispose();
     }//GEN-LAST:event_ButexploActionPerformed
 
     private void ButskinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButskinActionPerformed

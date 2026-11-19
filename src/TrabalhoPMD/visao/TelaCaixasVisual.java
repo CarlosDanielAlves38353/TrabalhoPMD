@@ -4,6 +4,7 @@ import TrabalhoPMD.modelo.Caixa;
 import TrabalhoPMD.modelo.Skin;
 import TrabalhoPMD.modelo.Usuario;
 import TrabalhoPMD.servico.ServicoCaixa;
+import TrabalhoPMD.modelo.Perfil;
 
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -17,6 +18,7 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
 /**
  * Janela de abertura de caixas.
  *
@@ -546,9 +548,9 @@ public class TelaCaixasVisual extends javax.swing.JFrame {
             return;
         }
 
-      StringBuilder texto = new StringBuilder(
-        "<html><div style='text-align:left;'>"
-);
+        StringBuilder texto = new StringBuilder(
+                "<html><div style='text-align:left;'>"
+        );
 
         for (java.util.Map.Entry<String, Double> entrada
                 : caixa.getProbabilidades().entrySet()) {
@@ -853,15 +855,40 @@ public class TelaCaixasVisual extends javax.swing.JFrame {
     }
 
     private void fecharButtonActionPerformed(
-            java.awt.event.ActionEvent evt) {
+        java.awt.event.ActionEvent evt) {
 
-        if (temporizador != null && temporizador.isRunning()) {
-            temporizador.stop();
-        }
-
-        dispose();
+    // Interrompe a animação, caso esteja acontecendo.
+    if (temporizador != null && temporizador.isRunning()) {
+        temporizador.stop();
     }
 
+    // Retorna para o menu correspondente ao perfil.
+    if (usuario != null) {
+
+        if (usuario.getPerfil() == Perfil.ADMIN) {
+
+            FrameMenuAdmin menu = new FrameMenuAdmin(usuario);
+            menu.setLocationRelativeTo(null);
+            menu.setVisible(true);
+
+        } else {
+
+            FrameUsuarioMenu menu = new FrameUsuarioMenu(usuario);
+            menu.setLocationRelativeTo(null);
+            menu.setVisible(true);
+        }
+
+    } else {
+
+        // Caso a tela tenha sido aberta sem usuário para pré-visualização.
+        FramePrincipal tela = new FramePrincipal();
+        tela.setLocationRelativeTo(null);
+        tela.setVisible(true);
+    }
+
+    // Fecha a tela atual.
+    this.dispose();
+}
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -1058,55 +1085,55 @@ public class TelaCaixasVisual extends javax.swing.JFrame {
     private javax.swing.JLabel tituloLabel;
     // End of variables declaration//GEN-END:variables
 
-private class PainelArredondado extends JPanel {
+    private class PainelArredondado extends JPanel {
 
-    private final Color fundo;
-    private final Color borda;
+        private final Color fundo;
+        private final Color borda;
 
-    public PainelArredondado(Color fundo, Color borda) {
+        public PainelArredondado(Color fundo, Color borda) {
 
-        this.fundo = fundo;
-        this.borda = borda;
+            this.fundo = fundo;
+            this.borda = borda;
 
-        setOpaque(false);
+            setOpaque(false);
+        }
+
+        @Override
+        protected void paintComponent(java.awt.Graphics g) {
+
+            super.paintComponent(g);
+
+            java.awt.Graphics2D g2
+                    = (java.awt.Graphics2D) g.create();
+
+            g2.setRenderingHint(
+                    java.awt.RenderingHints.KEY_ANTIALIASING,
+                    java.awt.RenderingHints.VALUE_ANTIALIAS_ON
+            );
+
+            g2.setColor(fundo);
+
+            g2.fillRoundRect(
+                    0,
+                    0,
+                    getWidth() - 1,
+                    getHeight() - 1,
+                    22,
+                    22
+            );
+
+            g2.setColor(borda);
+
+            g2.drawRoundRect(
+                    0,
+                    0,
+                    getWidth() - 1,
+                    getHeight() - 1,
+                    22,
+                    22
+            );
+
+            g2.dispose();
+        }
     }
-
-    @Override
-    protected void paintComponent(java.awt.Graphics g) {
-
-        super.paintComponent(g);
-
-        java.awt.Graphics2D g2 =
-                (java.awt.Graphics2D) g.create();
-
-        g2.setRenderingHint(
-                java.awt.RenderingHints.KEY_ANTIALIASING,
-                java.awt.RenderingHints.VALUE_ANTIALIAS_ON
-        );
-
-        g2.setColor(fundo);
-
-        g2.fillRoundRect(
-                0,
-                0,
-                getWidth() - 1,
-                getHeight() - 1,
-                22,
-                22
-        );
-
-        g2.setColor(borda);
-
-        g2.drawRoundRect(
-                0,
-                0,
-                getWidth() - 1,
-                getHeight() - 1,
-                22,
-                22
-        );
-
-        g2.dispose();
-    }
-}
 }

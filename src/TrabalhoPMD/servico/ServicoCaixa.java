@@ -177,6 +177,7 @@ public class ServicoCaixa {
     private List<Skin> carregarCatalogoSkins() {
 
         List<Skin> catalogo = new ArrayList<>();
+
         if (catalogoCache != null) {
             return catalogoCache;
         }
@@ -620,6 +621,47 @@ public class ServicoCaixa {
 
             if (valor.contains("covert")) {
                 return "Covert";
+            }
+        }
+
+        // FORTNITE
+        if (jogo.equalsIgnoreCase("Fortnite")) {
+
+            switch (valor) {
+
+                case "comum":
+                    return "Common";
+
+                case "incomum":
+                    return "Uncommon";
+
+                case "raro":
+                    return "Rare";
+
+                case "épico":
+                    return "Epic";
+
+                case "lendário":
+                    return "Legendary";
+
+                case "marvel":
+                case "série marvel":
+                    return "Marvel";
+
+                case "série dc":
+                case "dc":
+                    return "DC";
+
+                case "série ícones":
+                case "icon series":
+                    return "Icon Series";
+
+                case "série lendas dos jogos":
+                case "gaming legends":
+                    return "Gaming Legends";
+
+                default:
+                    return raridade.trim();
             }
         }
 

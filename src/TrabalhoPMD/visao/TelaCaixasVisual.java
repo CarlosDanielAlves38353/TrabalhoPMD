@@ -5,9 +5,7 @@ import TrabalhoPMD.modelo.Skin;
 import TrabalhoPMD.modelo.Usuario;
 import TrabalhoPMD.servico.ServicoCaixa;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
@@ -18,20 +16,7 @@ import java.util.List;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.SwingWorker;
-import javax.swing.Timer;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-
-
-
+import javax.swing.*;
 /**
  * Janela de abertura de caixas.
  *
@@ -49,16 +34,22 @@ public class TelaCaixasVisual extends javax.swing.JFrame {
     private Timer temporizador;
     private int passos;
 
-    private final Color FUNDO = new Color(18, 20, 32);
-    private final Color PAINEL = new Color(29, 33, 49);
-    private final Color CARTAO = new Color(42, 48, 68);
+    private final Color FUNDO = new Color(15, 18, 34);
+    private final Color PAINEL = new Color(25, 30, 52);
+    private final Color CARTAO = new Color(35, 42, 69);
+
     private final Color TEXTO = new Color(245, 246, 250);
-    private final Color ROXO = new Color(123, 104, 238);
+    private final Color TEXTO_SECUNDARIO = new Color(180, 188, 210);
+
+    private final Color ROXO = new Color(125, 108, 230);
+    private final Color LAVANDA = new Color(201, 214, 255);
     private final Color DOURADO = new Color(245, 190, 75);
 
+    private final Color BORDA = new Color(67, 76, 111);
+
     /**
-     * Construtor sem usuário, mantido para permitir a pré-visualização
-     * do formulário no NetBeans.
+     * Construtor sem usuário, mantido para permitir a pré-visualização do
+     * formulário no NetBeans.
      */
     public TelaCaixasVisual() {
         this(null);
@@ -71,7 +62,20 @@ public class TelaCaixasVisual extends javax.swing.JFrame {
         this.aleatorio = new Random();
 
         initComponents();
+
         configurarVisual();
+
+        setTitle("Skin Collection - Abertura de Caixas");
+        setDefaultCloseOperation(
+                javax.swing.WindowConstants.DISPOSE_ON_CLOSE
+        );
+
+        setMinimumSize(new java.awt.Dimension(1050, 700));
+        setSize(1200, 800);
+
+        // Monta a nova interface utilizando os componentes existentes.
+        setContentPane(construirInterface());
+
         carregarCaixas();
 
         setLocationRelativeTo(null);
@@ -89,79 +93,438 @@ public class TelaCaixasVisual extends javax.swing.JFrame {
 
     private void configurarVisual() {
 
-        tituloLabel.setFont(new Font("Arial", Font.BOLD, 30));
+        // Título principal
+        tituloLabel.setFont(
+                new Font("SansSerif", Font.BOLD, 29)
+        );
+
         tituloLabel.setForeground(TEXTO);
+        tituloLabel.setHorizontalAlignment(SwingConstants.LEFT);
 
-        subtituloLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-        subtituloLabel.setForeground(new Color(190, 195, 212));
+        // Subtítulo
+        subtituloLabel.setFont(
+                new Font("SansSerif", Font.PLAIN, 14)
+        );
 
-        caixaLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        caixaLabel.setForeground(TEXTO);
+        subtituloLabel.setForeground(TEXTO_SECUNDARIO);
+        subtituloLabel.setHorizontalAlignment(SwingConstants.LEFT);
 
-        probabilidadesLabel.setFont(new Font("Arial", Font.PLAIN, 13));
-        probabilidadesLabel.setForeground(new Color(205, 210, 225));
+        // Seleção da caixa
+        caixaLabel.setFont(
+                new Font("SansSerif", Font.BOLD, 13)
+        );
 
-        statusLabel.setFont(new Font("Arial", Font.PLAIN, 13));
-        statusLabel.setForeground(new Color(190, 195, 212));
+        caixaLabel.setForeground(LAVANDA);
+        caixaLabel.setText("ESCOLHA SUA CAIXA");
 
-        resultadoLabel.setFont(new Font("Arial", Font.BOLD, 19));
-        resultadoLabel.setForeground(TEXTO);
+        seletorCaixaComboBox.setFont(
+                new Font("SansSerif", Font.PLAIN, 14)
+        );
 
-        detalheResultadoLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-        detalheResultadoLabel.setForeground(new Color(190, 195, 212));
+        seletorCaixaComboBox.setBackground(PAINEL);
+        seletorCaixaComboBox.setForeground(TEXTO);
 
-        imagemPremioLabel.setFont(new Font("Arial", Font.BOLD, 13));
-        imagemPremioLabel.setForeground(new Color(190, 195, 212));
-        imagemPremioLabel.setBackground(PAINEL);
+        seletorCaixaComboBox.setPreferredSize(
+                new java.awt.Dimension(310, 38)
+        );
+
+        seletorCaixaComboBox.setBorder(
+                BorderFactory.createLineBorder(BORDA)
+        );
+
+        // Probabilidades
+        probabilidadesLabel.setFont(
+                new Font("SansSerif", Font.PLAIN, 13)
+        );
+
+        probabilidadesLabel.setForeground(TEXTO_SECUNDARIO);
+        probabilidadesLabel.setHorizontalAlignment(SwingConstants.LEFT);
+
+        // Status
+        statusLabel.setFont(
+                new Font("SansSerif", Font.PLAIN, 13)
+        );
+
+        statusLabel.setForeground(LAVANDA);
+        statusLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+        // Resultado
+        resultadoLabel.setFont(
+                new Font("SansSerif", Font.BOLD, 19)
+        );
+
+        resultadoLabel.setForeground(DOURADO);
+
+        detalheResultadoLabel.setFont(
+                new Font("SansSerif", Font.PLAIN, 13)
+        );
+
+        detalheResultadoLabel.setForeground(TEXTO_SECUNDARIO);
+
+        // Imagem da recompensa
+        imagemPremioLabel.setFont(
+                new Font("SansSerif", Font.BOLD, 13)
+        );
+
+        imagemPremioLabel.setForeground(LAVANDA);
+        imagemPremioLabel.setBackground(CARTAO);
         imagemPremioLabel.setOpaque(true);
+
+        imagemPremioLabel.setHorizontalAlignment(
+                SwingConstants.CENTER
+        );
+
+        imagemPremioLabel.setPreferredSize(
+                new java.awt.Dimension(210, 145)
+        );
+
         imagemPremioLabel.setBorder(
-                BorderFactory.createLineBorder(new Color(75, 83, 110), 1));
+                BorderFactory.createLineBorder(ROXO, 1)
+        );
 
-        estilizarCartao(roletaSkin1);
-        estilizarCartao(roletaSkin2);
-        estilizarCartao(roletaSkin3);
-        estilizarCartao(roletaSkin4);
-        estilizarCartao(roletaSkin5);
-        estilizarCartao(roletaSkin6);
-        estilizarCartao(roletaSkin7);
+        // Botões
+        estilizarBotao(abrirButton, ROXO, Color.WHITE);
 
-        abrirButton.setFont(new Font("Arial", Font.BOLD, 15));
-        abrirButton.setForeground(Color.WHITE);
-        abrirButton.setBackground(ROXO);
-        abrirButton.setFocusPainted(false);
-        abrirButton.setBorderPainted(false);
+        estilizarBotao(
+                fecharButton,
+                new Color(45, 52, 78),
+                LAVANDA
+        );
 
-        fecharButton.setFont(new Font("Arial", Font.BOLD, 13));
-        fecharButton.setForeground(TEXTO);
-        fecharButton.setBackground(new Color(65, 71, 94));
-        fecharButton.setFocusPainted(false);
-        fecharButton.setBorderPainted(false);
+        abrirButton.setText("ABRIR CAIXA");
+        fecharButton.setText("VOLTAR");
+
+        abrirButton.setPreferredSize(
+                new java.awt.Dimension(175, 48)
+        );
+
+        fecharButton.setPreferredSize(
+                new java.awt.Dimension(110, 48)
+        );
 
         jPanelPrincipal.setBackground(FUNDO);
-        seletorCaixaComboBox.setFont(new Font("Arial", Font.PLAIN, 14));
     }
 
-    private void estilizarCartao(JLabel cartao) {
+    private void estilizarBotao(JButton botao, Color fundo, Color texto) {
 
-        cartao.setOpaque(true);
-        cartao.setBackground(CARTAO);
-        cartao.setForeground(TEXTO);
-        cartao.setFont(new Font("Arial", Font.BOLD, 13));
-        cartao.setHorizontalAlignment(SwingConstants.CENTER);
-        cartao.setVerticalAlignment(SwingConstants.CENTER);
-        cartao.setBorder(
+        botao.setFont(
+                new Font("SansSerif", Font.BOLD, 12)
+        );
+
+        botao.setForeground(texto);
+        botao.setBackground(fundo);
+
+        botao.setFocusPainted(false);
+        botao.setBorderPainted(false);
+
+        botao.setOpaque(true);
+        botao.setCursor(
+                new java.awt.Cursor(
+                        java.awt.Cursor.HAND_CURSOR
+                )
+        );
+
+        botao.setBorder(
                 BorderFactory.createCompoundBorder(
                         BorderFactory.createLineBorder(
-                                new Color(75, 83, 110), 1),
-                        BorderFactory.createEmptyBorder(10, 7, 10, 7)
+                                fundo, 1, true
+                        ),
+                        BorderFactory.createEmptyBorder(
+                                10, 17, 10, 17
+                        )
                 )
+        );
+    }
+
+    private JPanel construirInterface() {
+
+        JPanel principal = new JPanel(new BorderLayout(0, 18));
+
+        principal.setBackground(FUNDO);
+
+        principal.setBorder(
+                BorderFactory.createEmptyBorder(25, 28, 25, 28)
+        );
+
+        // =====================================
+        // CABEÇALHO
+        // =====================================
+        JPanel cabecalho = new JPanel();
+
+        cabecalho.setOpaque(false);
+
+        cabecalho.setLayout(
+                new javax.swing.BoxLayout(
+                        cabecalho,
+                        javax.swing.BoxLayout.Y_AXIS
+                )
+        );
+
+        tituloLabel.setText("ABERTURA DE CAIXAS");
+
+        subtituloLabel.setText(
+                "Descubra novas skins e adicione recompensas à sua coleção."
+        );
+
+        cabecalho.add(tituloLabel);
+        cabecalho.add(javax.swing.Box.createVerticalStrut(5));
+        cabecalho.add(subtituloLabel);
+
+        // =====================================
+        // SELEÇÃO DE CAIXA
+        // =====================================
+        PainelArredondado painelSelecao = new PainelArredondado(
+                PAINEL,
+                BORDA
+        );
+
+        painelSelecao.setLayout(new BorderLayout(10, 8));
+
+        painelSelecao.setBorder(
+                BorderFactory.createEmptyBorder(12, 18, 12, 18)
+        );
+
+        JPanel linhaSelecao = new JPanel(
+                new FlowLayout(FlowLayout.LEFT, 12, 0)
+        );
+
+        linhaSelecao.setOpaque(false);
+
+        linhaSelecao.add(caixaLabel);
+        linhaSelecao.add(seletorCaixaComboBox);
+
+        painelSelecao.add(
+                linhaSelecao,
+                BorderLayout.NORTH
+        );
+
+        painelSelecao.add(
+                probabilidadesLabel,
+                BorderLayout.CENTER
+        );
+
+        // =====================================
+        // CARTÕES DA ROLETA
+        // =====================================
+        JPanel fileiraRoleta = new JPanel(
+                new GridLayout(1, 7, 10, 0)
+        );
+
+        fileiraRoleta.setOpaque(false);
+
+        JLabel[] cartoes = obterCartoes();
+
+        for (int i = 0; i < cartoes.length; i++) {
+
+            fileiraRoleta.add(
+                    criarCartaoRoleta(
+                            cartoes[i],
+                            i == 3
+                    )
+            );
+        }
+
+        PainelArredondado painelRoleta = new PainelArredondado(
+                PAINEL,
+                BORDA
+        );
+
+        painelRoleta.setLayout(new BorderLayout());
+
+        painelRoleta.setBorder(
+                BorderFactory.createEmptyBorder(16, 16, 16, 16)
+        );
+
+        painelRoleta.add(
+                fileiraRoleta,
+                BorderLayout.CENTER
+        );
+
+        // =====================================
+        // ÁREA CENTRAL
+        // =====================================
+        JPanel centro = new JPanel(new BorderLayout(0, 12));
+
+        centro.setOpaque(false);
+
+        centro.add(
+                painelSelecao,
+                BorderLayout.NORTH
+        );
+
+        centro.add(
+                painelRoleta,
+                BorderLayout.CENTER
+        );
+
+        centro.add(
+                statusLabel,
+                BorderLayout.SOUTH
+        );
+
+        // =====================================
+        // ÁREA DE RECOMPENSA
+        // =====================================
+        PainelArredondado painelRecompensa = new PainelArredondado(
+                PAINEL,
+                BORDA
+        );
+
+        painelRecompensa.setLayout(
+                new BorderLayout(20, 0)
+        );
+
+        painelRecompensa.setBorder(
+                BorderFactory.createEmptyBorder(16, 18, 16, 18)
+        );
+
+        // Imagem
+        painelRecompensa.add(
+                imagemPremioLabel,
+                BorderLayout.WEST
+        );
+
+        // Informações
+        JPanel informacoes = new JPanel();
+
+        informacoes.setOpaque(false);
+
+        informacoes.setLayout(
+                new javax.swing.BoxLayout(
+                        informacoes,
+                        javax.swing.BoxLayout.Y_AXIS
+                )
+        );
+
+        resultadoLabel.setText(
+                "Sua próxima recompensa"
+        );
+
+        detalheResultadoLabel.setText(
+                "Abra uma caixa para descobrir sua próxima skin."
+        );
+
+        informacoes.add(
+                resultadoLabel
+        );
+
+        informacoes.add(
+                javax.swing.Box.createVerticalStrut(10)
+        );
+
+        informacoes.add(
+                detalheResultadoLabel
+        );
+
+        painelRecompensa.add(
+                informacoes,
+                BorderLayout.CENTER
+        );
+
+        // Botões
+        JPanel botoes = new JPanel(
+                new FlowLayout(FlowLayout.RIGHT, 10, 0)
+        );
+
+        botoes.setOpaque(false);
+
+        botoes.add(abrirButton);
+        botoes.add(fecharButton);
+
+        painelRecompensa.add(
+                botoes,
+                BorderLayout.EAST
+        );
+
+        // =====================================
+        // MONTAGEM FINAL
+        // =====================================
+        principal.add(
+                cabecalho,
+                BorderLayout.NORTH
+        );
+
+        principal.add(
+                centro,
+                BorderLayout.CENTER
+        );
+
+        principal.add(
+                painelRecompensa,
+                BorderLayout.SOUTH
+        );
+
+        return principal;
+    }
+
+    private JPanel criarCartaoRoleta(
+            JLabel etiqueta,
+            boolean destaque) {
+
+        estilizarCartao(etiqueta, destaque);
+
+        PainelArredondado cartao = new PainelArredondado(
+                destaque
+                        ? new Color(48, 43, 78)
+                        : CARTAO,
+                destaque
+                        ? DOURADO
+                        : BORDA
+        );
+
+        cartao.setLayout(new BorderLayout());
+
+        cartao.setBorder(
+                BorderFactory.createEmptyBorder(10, 7, 10, 7)
+        );
+
+        cartao.setPreferredSize(
+                new java.awt.Dimension(145, 195)
+        );
+
+        cartao.add(
+                etiqueta,
+                BorderLayout.CENTER
+        );
+
+        return cartao;
+    }
+
+    private void estilizarCartao(
+            JLabel cartao,
+            boolean destaque) {
+
+        cartao.setOpaque(false);
+
+        cartao.setForeground(
+                destaque ? DOURADO : TEXTO
+        );
+
+        cartao.setFont(
+                new Font(
+                        "SansSerif",
+                        Font.BOLD,
+                        destaque ? 14 : 12
+                )
+        );
+
+        cartao.setHorizontalAlignment(
+                SwingConstants.CENTER
+        );
+
+        cartao.setVerticalAlignment(
+                SwingConstants.CENTER
+        );
+
+        cartao.setBorder(
+                BorderFactory.createEmptyBorder(10, 5, 10, 5)
         );
     }
 
     private void carregarCaixas() {
 
-        DefaultComboBoxModel<Caixa> modelo =
-                new DefaultComboBoxModel<>();
+        DefaultComboBoxModel<Caixa> modelo
+                = new DefaultComboBoxModel<>();
 
         for (Caixa caixa : servico.listarCaixas()) {
             modelo.addElement(caixa);
@@ -183,7 +546,9 @@ public class TelaCaixasVisual extends javax.swing.JFrame {
             return;
         }
 
-        StringBuilder texto = new StringBuilder("<html><center>");
+      StringBuilder texto = new StringBuilder(
+        "<html><div style='text-align:left;'>"
+);
 
         for (java.util.Map.Entry<String, Double> entrada
                 : caixa.getProbabilidades().entrySet()) {
@@ -194,7 +559,7 @@ public class TelaCaixasVisual extends javax.swing.JFrame {
                     .append(" &nbsp;&nbsp;&nbsp; ");
         }
 
-        texto.append("</center></html>");
+        texto.append("</div></html>");
         probabilidadesLabel.setText(texto.toString());
 
         int quantidade = servico.listarSkins(caixa).size();
@@ -497,41 +862,7 @@ public class TelaCaixasVisual extends javax.swing.JFrame {
         dispose();
     }
 
-    
 
-    public static void main(String[] args) {
-
-        SwingUtilities.invokeLater(() -> {
-
-            try {
-                // Define o visual padrão do sistema
-                UIManager.setLookAndFeel(
-                    UIManager.getSystemLookAndFeelClassName()
-                );
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            // Cria um usuário apenas para testes
-            Usuario usuarioTeste = new Usuario(
-                1,
-                "Usuario Teste",
-                "teste@email.com",
-                "123456"
-            );
-
-            // Abre a tela de caixas com o usuário de teste
-            TelaCaixasVisual tela = new TelaCaixasVisual(usuarioTeste);
-
-            tela.setLocationRelativeTo(null);
-            tela.setVisible(true);
-        });
-    }
-
-
-    
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -726,4 +1057,56 @@ public class TelaCaixasVisual extends javax.swing.JFrame {
     private javax.swing.JLabel subtituloLabel;
     private javax.swing.JLabel tituloLabel;
     // End of variables declaration//GEN-END:variables
+
+private class PainelArredondado extends JPanel {
+
+    private final Color fundo;
+    private final Color borda;
+
+    public PainelArredondado(Color fundo, Color borda) {
+
+        this.fundo = fundo;
+        this.borda = borda;
+
+        setOpaque(false);
+    }
+
+    @Override
+    protected void paintComponent(java.awt.Graphics g) {
+
+        super.paintComponent(g);
+
+        java.awt.Graphics2D g2 =
+                (java.awt.Graphics2D) g.create();
+
+        g2.setRenderingHint(
+                java.awt.RenderingHints.KEY_ANTIALIASING,
+                java.awt.RenderingHints.VALUE_ANTIALIAS_ON
+        );
+
+        g2.setColor(fundo);
+
+        g2.fillRoundRect(
+                0,
+                0,
+                getWidth() - 1,
+                getHeight() - 1,
+                22,
+                22
+        );
+
+        g2.setColor(borda);
+
+        g2.drawRoundRect(
+                0,
+                0,
+                getWidth() - 1,
+                getHeight() - 1,
+                22,
+                22
+        );
+
+        g2.dispose();
+    }
+}
 }
